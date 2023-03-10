@@ -45,8 +45,11 @@ frontend/Thumbs.db
 backend/target/
 !backend/.mvn/wrapper/maven-wrapper.jar
 
-### IntelliJ IDEA ###
+# IntelliJ IDEA
 backend/.idea/
 backend/*.iws
 backend/*.iml
 backend/*.ipr
+
+# DB
+backend/db/*.db

@@ -27,8 +27,8 @@ public class ItemEntity {
   @ManyToMany
   @JoinTable(
       name = "tbl_item_tag",
-      joinColumns = @JoinColumn(name = "tbl_item_id"),
-      inverseJoinColumns = @JoinColumn(name = "tbl_tag_id"))
+      joinColumns = @JoinColumn(name = "item_id"),
+      inverseJoinColumns = @JoinColumn(name = "tag_id"))
   private final Set<TagEntity> tags = new HashSet<>();
 
   @Id
