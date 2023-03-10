@@ -8,6 +8,7 @@ import { ItemDetailComponent } from './items/item-detail/item-detail.component';
 import { HeaderComponent } from './header/header.component';
 import { ItemListComponent } from './items/item-list/item-list.component';
 import { ItemStartComponent } from './items/item-start/item-start.component';
+import { ItemEditComponent } from './items/item-edit/item-edit.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ItemStartComponent } from './items/item-start/item-start.component';
     ItemDetailComponent,
     HeaderComponent,
     ItemListComponent,
-    ItemStartComponent
+    ItemStartComponent,
+    ItemEditComponent
   ],
   imports: [
     BrowserModule,
