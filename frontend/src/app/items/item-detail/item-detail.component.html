@@ -1,10 +1,10 @@
 <div class="row">
-    <div class="col-xs-12">
+    <div class="col-sm">
         <img src="{{ item.picture }}" alt="{{ item.name }}" class="image-resonsive" style="max-height: 300px;">
     </div>
 </div>
-<div class="row">
-    <div class="col-xs-12">
+<div class="row mt-3">
+    <div class="col-sm">
         <h1>{{ item.name }}</h1>
         <p>{{ item.description }}</p>
         <ul>
@@ -16,11 +16,8 @@
 </div>
 <hr>
 <div class="row">
-    <div class="col-xs-12">
-        <div class="btn-group" role="group">
-            <button type="button" class="btn btn-primary">Left</button>
-            <button type="button" class="btn btn-primary">Middle</button>
-            <button type="button" class="btn btn-primary">Right</button>
-          </div>
+    <div class="col-sm d-grid gap-2 d-md-flex justify-content-md-end">
+        <button type="button" class="btn btn-primary"><i class="bi bi-pencil-fill"></i></button>
+        <button type="button" class="btn btn-danger"><i class="bi bi-trash-fill"></i></button>
     </div>
 </div>
