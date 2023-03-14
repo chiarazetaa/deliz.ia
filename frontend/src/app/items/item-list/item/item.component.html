@@ -1,0 +1,9 @@
+<a class="list-group-item clearfix" style="cursor: pointer;" [routerLink]="[index]" routerLinkActive="active">
+    <div class="pull-left col-md-7">
+        <h4 class="list-group-item-heading">{{ item.name }}</h4>
+        <p class="list-group-item-text" style="word-wrap: break-word;">{{ item.description }}</p>
+    </div>
+    <span class="pull-right">
+        <img [src]="item.picture" alt="{{ item.name }}" class="img-responsive" style="max-width: 130px">
+    </span>
+</a>

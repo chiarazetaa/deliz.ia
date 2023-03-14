@@ -1,1 +1,11 @@
-<p>item-list works!</p>
+<div class="row">
+    <div class="col-xs-12">
+        <button class="btn btn-success">Aggiungi elemento</button>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-xs-12">
+        <app-item *ngFor="let itemEl of items; let i=index" [item]="itemEl" [index]="i"></app-item>
+    </div>
+</div>

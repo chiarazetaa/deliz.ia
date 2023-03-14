@@ -10,6 +10,7 @@ import { ItemListComponent } from './items/item-list/item-list.component';
 import { ItemStartComponent } from './items/item-start/item-start.component';
 import { ItemEditComponent } from './items/item-edit/item-edit.component';
 import { FormsModule } from '@angular/forms';
+import { ItemComponent } from './items/item-list/item/item.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { FormsModule } from '@angular/forms';
     HeaderComponent,
     ItemListComponent,
     ItemStartComponent,
-    ItemEditComponent
+    ItemEditComponent,
+    ItemComponent
   ],
   imports: [
     BrowserModule,
