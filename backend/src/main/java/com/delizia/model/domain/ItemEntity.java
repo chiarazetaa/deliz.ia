@@ -47,30 +47,4 @@ public class ItemEntity {
     name = dto.getName() != null ? dto.getName() : name;
     price = dto.getPrice() != null ? dto.getPrice() : price;
   }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-
-    ItemEntity that = (ItemEntity) o;
-
-    if (!id.equals(that.id)) {
-      return false;
-    }
-    if (!name.equals(that.name)) {
-      return false;
-    }
-    if (!Objects.equals(description, that.description)) {
-      return false;
-    }
-    if (!price.equals(that.price)) {
-      return false;
-    }
-    return tags != null ? tags.equals(that.tags) : that.tags == null;
-  }
 }
