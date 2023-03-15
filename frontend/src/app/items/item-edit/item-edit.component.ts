@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Item } from '../item.model';
 import { ItemService } from '../item.service';
 
@@ -19,7 +19,7 @@ export class ItemEditComponent implements OnInit {
   itemPrice = 1;
   itemNotes = [];
 
-  constructor(private route: ActivatedRoute, private itemService: ItemService ) { }
+  constructor(private route: ActivatedRoute, private itemService: ItemService, private router: Router ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(
@@ -40,7 +40,12 @@ export class ItemEditComponent implements OnInit {
   }
 
   onSaveItem() {
+    this.itemService.saveItem(this.id, { picture: this.itemPicture, name: this.itemName, description: this.itemDescription, price: this.itemPrice, notes: this.itemNotes });
+    this.router.navigate(['../'], { relativeTo: this.route });
+  }
 
+  onAddItem() {
+    this.itemService.addItem(this.item);
   }
 
 }

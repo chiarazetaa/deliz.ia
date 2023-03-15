@@ -30,4 +30,19 @@ export class ItemService {
     getItem(index: number) {
         return this.items[index];
     }
+
+    saveItem(index: number, itemInfo: Item) {
+        const item = this.items[index];
+        if (item) {
+            item.picture = itemInfo.picture;
+            item.name = itemInfo.name;
+            item.description = itemInfo.description;
+            item.price = itemInfo.price;
+            item.notes = itemInfo.notes.toString().split(',');
+        }
+    }
+
+    addItem(item: Item) {
+        console.log(item);
+    }
 }

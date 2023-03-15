@@ -24,6 +24,7 @@
 <hr>
 <div class="row">
     <div class="col-sm d-grid gap-2 d-md-flex justify-content-md-end">
-        <button type="button" class="btn btn-primary" (click)="onSaveItem()">Salva</button>
+        <button type="button" class="btn btn-primary" *ngIf="editMode" (click)="onSaveItem()">Salva</button>
+        <button type="button" class="btn btn-primary" *ngIf="!editMode" (click)="onAddItem()">Salva</button>
     </div>
 </div>
