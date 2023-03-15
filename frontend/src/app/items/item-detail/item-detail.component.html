@@ -7,6 +7,7 @@
     <div class="col-sm">
         <h1>{{ item.name }}</h1>
         <p>{{ item.description }}</p>
+        <p><i>Prezzo: {{ item.price }} €</i></p>
         <ul>
             <li *ngFor="let note of item.notes">
                 <small>{{ note }}</small>
@@ -17,7 +18,7 @@
 <hr>
 <div class="row">
     <div class="col-sm d-grid gap-2 d-md-flex justify-content-md-end">
-        <button type="button" class="btn btn-primary"><i class="bi bi-pencil-fill"></i></button>
+        <button type="button" class="btn btn-primary" (click)="onEditItem()"><i class="bi bi-pencil-fill"></i></button>
         <button type="button" class="btn btn-danger"><i class="bi bi-trash-fill"></i></button>
     </div>
 </div>

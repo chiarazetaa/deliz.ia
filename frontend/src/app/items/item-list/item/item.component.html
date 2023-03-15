@@ -1,9 +1,13 @@
 <a class="list-group-item list-group-item-action" style="cursor: pointer;" [routerLink]="[index]" routerLinkActive="active">
-    <div class="float-start col-md-8">
-        <h4 class="list-group-item bg-transparent border-0">{{ item.name }}</h4>
+    <div class="col">
+        <div class="float-start">
+            <h4 class="list-group-item bg-transparent border-0">{{ item.name }}</h4>
+        </div>
+        <div class="float-end">
+            <h5 class="list-group-item bg-transparent border-0">{{ item.price }} €</h5>
+        </div>
+    </div>
+    <div class="float-start">
         <p class="list-group-item bg-transparent border-0" style="word-wrap: break-word;">{{ item.description }}</p>
     </div>
-    <span class="float-end mt-3 mb-3">
-        <img [src]="item.picture" alt="{{ item.name }}" class="img-fluid" style="max-height: 90px">
-    </span>
 </a>
