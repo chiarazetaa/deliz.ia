@@ -7,13 +7,15 @@ import java.util.List;
 
 public interface ItemService {
 
-  ItemEntity[] getSmoothies();
+  ItemEntity[] getItems();
 
-  ItemEntity getSmoothieById(Long id);
+  ItemEntity getItemById(Long id);
 
-  void updateSmoothieById(Long id, ItemDTO dto);
+  void addNewItem(ItemDTO dto);
 
-  void patchSmoothieById(Long id, List<PatchDTO> patchDTO);
+  void updateItemById(Long id, ItemDTO dto);
 
-  void deleteSmoothieById(Long id);
+  void patchItemById(Long id, List<PatchDTO> patchDTO);
+
+  void deleteItemById(Long id);
 }

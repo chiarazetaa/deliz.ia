@@ -1,5 +1,8 @@
 package com.delizia.model.domain;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.google.common.base.Objects;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
@@ -39,4 +42,18 @@ public class UserEntity {
 
   @Column(nullable = false)
   private String password;
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    UserEntity that = (UserEntity) o;
+    return Objects.equal(roles, that.roles)
+        && Objects.equal(id, that.id) && Objects.equal(
+        username, that.username) && Objects.equal(password, that.password);
+  }
 }

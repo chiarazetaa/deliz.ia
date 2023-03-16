@@ -10,13 +10,13 @@ import lombok.Getter;
 public class ItemDTO {
 
   @Size(min = 1, message = "{validation.item.name.size.too_short}")
-  @Size(min = 100, message = "{validation.item.name.size.too_long}")
+  @Size(max = 100, message = "{validation.item.name.size.too_long}")
   private final String name;
 
   @Size(min = 1, message = "{validation.item.description.size.too_short}")
-  @Size(min = 500, message = "{validation.item.description.size.too_long}")
+  @Size(max = 500, message = "{validation.item.description.size.too_long}")
   private final String description;
 
   @Min(value = 0, message = "{validation.item.price.negative}")
-  private final Float price;
+  private final Double price;
 }
