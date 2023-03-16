@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Item } from '../item.model';
 import { ItemService } from '../item.service';
 
@@ -11,10 +12,13 @@ export class ItemListComponent implements OnInit {
 
   items: Item[];
 
-  constructor(private itemService: ItemService) { }
+  constructor(private itemService: ItemService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.items = this.itemService.getItems();
   }
 
+  onNewItem() {
+    this.router.navigate(['new'], {relativeTo: this.route});
+  }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Item } from '../item.model';
 import { ItemService } from '../item.service';
 
@@ -13,7 +13,7 @@ export class ItemDetailComponent implements OnInit {
   item: Item;
   id: number;
 
-  constructor(private itemService: ItemService, private route: ActivatedRoute) { }
+  constructor(private itemService: ItemService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(
@@ -22,6 +22,10 @@ export class ItemDetailComponent implements OnInit {
         this.item = this.itemService.getItem(this.id);
       }
     );
+  }
+
+  onEditItem() {
+    this.router.navigate(['edit'], {relativeTo: this.route});
   }
 
 }
