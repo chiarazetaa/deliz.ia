@@ -1,13 +1,6 @@
 INSERT INTO tbl_role (id) VALUES
+('ROLE_ANONYMOUS'),
 ('ROLE_OWNER');
-
-INSERT INTO tbl_operation (id) VALUES
-('OP_READ'),
-('OP_WRITE');
-
-INSERT INTO tbl_role_operation (role_id, operation_id) VALUES
-('ROLE_OWNER', 'OP_READ'),
-('ROLE_OWNER', 'OP_WRITE');
 
 INSERT INTO tbl_user (id, username, password) VALUES
 (1, 'owner', '$2a$10$EKlRvIQfTMkVzTG1bYQm3.5cfvKLtkBw7RhMpxuyRCiF5HubRlsDq');

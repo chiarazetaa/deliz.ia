@@ -2,14 +2,20 @@ package com.delizia.service;
 
 import com.delizia.model.domain.ItemEntity;
 import com.delizia.model.dto.ItemDTO;
+import com.delizia.model.dto.PatchDTO;
+import java.util.List;
 
 public interface ItemService {
 
-  ItemEntity[] getSmoothies();
+  ItemEntity[] getItems();
 
-  ItemEntity getSmoothieById(Long id);
+  ItemEntity getItemById(Long id);
 
-  void updateSmoothieById(Long id, ItemDTO dto);
+  void addNewItem(ItemDTO dto);
 
-  void deleteSmoothieById(Long id);
+  void updateItemById(Long id, ItemDTO dto);
+
+  void patchItemById(Long id, List<PatchDTO> patchDTO);
+
+  void deleteItemById(Long id);
 }

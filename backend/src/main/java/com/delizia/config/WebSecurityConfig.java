@@ -1,6 +1,5 @@
 package com.delizia.config;
 
-import com.delizia.utils.JwtAuthenticationEntryPoint;
 import com.delizia.utils.JwtFilter;
 import java.util.Arrays;
 import java.util.List;
@@ -25,16 +24,12 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(jsr250Enabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig {
 
-  private final JwtAuthenticationEntryPoint authenticationEntryPoint;
   private final JwtFilter filter;
 
-  public WebSecurityConfig(
-      @Autowired JwtAuthenticationEntryPoint authenticationEntryPoint,
-      @Autowired JwtFilter filter) {
-    this.authenticationEntryPoint = authenticationEntryPoint;
+  public WebSecurityConfig(@Autowired JwtFilter filter) {
     this.filter = filter;
   }
 
@@ -48,13 +43,12 @@ public class WebSecurityConfig {
         .configurationSource(corsConfigurationSource())
         .and()
         .authorizeRequests()
-        .antMatchers("/login")
+        .antMatchers("/login", "/items/**")
         .permitAll()
         .anyRequest()
         .authenticated()
         .and()
         .exceptionHandling()
-        .authenticationEntryPoint(authenticationEntryPoint)
         .and()
         .sessionManagement()
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -78,7 +72,7 @@ public class WebSecurityConfig {
   public CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration configuration = new CorsConfiguration();
     configuration.setAllowedOrigins(List.of("http://localhost:4200"));
-    configuration.setAllowedMethods(Arrays.asList("DELETE", "PUT", "POST", "GET"));
+    configuration.setAllowedMethods(Arrays.asList("DELETE", "PUT", "PATCH", "POST", "GET"));
     configuration.setAllowCredentials(true);
     configuration.addAllowedHeader("*");
 

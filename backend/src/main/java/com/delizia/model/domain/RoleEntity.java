@@ -1,12 +1,10 @@
 package com.delizia.model.domain;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.google.common.base.Objects;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,19 +15,33 @@ import org.springframework.security.core.GrantedAuthority;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonInclude(Include.NON_NULL)
 @Entity(name = "tbl_role")
 public class RoleEntity implements GrantedAuthority {
 
-  @ManyToMany
-  @JoinTable(
-      name = "tbl_role_operation",
-      joinColumns = @JoinColumn(name = "role_id"),
-      inverseJoinColumns = @JoinColumn(name = "operation_id"))
-  private final List<OperationEntity> allowedOperations = new ArrayList<>();
   @Id private String id;
 
   @Override
   public String getAuthority() {
     return id;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    RoleEntity that = (RoleEntity) o;
+    return Objects.equal(id, that.id);
+  }
+
+  @Override
+  public String toString() {
+    return "RoleEntity{" +
+        "id='" + id + '\'' +
+        '}';
   }
 }

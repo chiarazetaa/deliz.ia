@@ -33,7 +33,7 @@ public class TokenManager implements Serializable {
         .compact();
   }
 
-  public Boolean validateJwtToken(String token, UserDetails userDetails) {
+  public Boolean isJwtValid(String token, UserDetails userDetails) {
     Claims claims =
         Jwts.parserBuilder()
             .setSigningKey(Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8)))
