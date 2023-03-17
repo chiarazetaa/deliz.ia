@@ -13,10 +13,10 @@ export class ItemEditComponent implements OnInit {
   editMode = false;
 
   item: Item;
-  itemPicture = '';
   itemName = '';
   itemDescription = '';
   itemPrice = 1;
+  itemPicture = '';
   itemNotes = [];
 
   constructor(private route: ActivatedRoute, private itemService: ItemService, private router: Router ) { }
@@ -31,21 +31,22 @@ export class ItemEditComponent implements OnInit {
 
     if (this.editMode) {
       this.item = this.itemService.getItem(this.id);
-      this.itemPicture = this.item.picture;
       this.itemName = this.item.name;
       this.itemDescription = this.item.description;
       this.itemPrice = this.item.price;
+      this.itemPicture = this.item.picture;
       this.itemNotes = this.item.notes;
     }
   }
 
   onSaveItem() {
-    this.itemService.saveItem(this.id, { picture: this.itemPicture, name: this.itemName, description: this.itemDescription, price: this.itemPrice, notes: this.itemNotes });
+    this.itemService.saveItem(this.id, { name: this.itemName, description: this.itemDescription, price: this.itemPrice, picture: this.itemPicture, notes: this.itemNotes });
     this.router.navigate(['../'], { relativeTo: this.route });
   }
 
   onAddItem() {
-    this.itemService.addItem(this.item);
+    this.itemService.addItem({ name: this.itemName, description: this.itemDescription, price: this.itemPrice, picture: this.itemPicture, notes: this.itemNotes });
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
 
 }

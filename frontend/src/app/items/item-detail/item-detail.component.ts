@@ -28,4 +28,7 @@ export class ItemDetailComponent implements OnInit {
     this.router.navigate(['edit'], {relativeTo: this.route});
   }
 
+  onRemoveItem() {
+    this.itemService.removeItem(this.id);
+  }
 }
