@@ -58,7 +58,7 @@ export class ItemService {
             itemInfo.description,
             itemInfo.price,
             itemInfo.picture,
-            itemInfo.notes
+            itemInfo.notes.toString().split(',')
         )
         this.items.push(item);
         this.itemsChanged.next(this.items.slice());

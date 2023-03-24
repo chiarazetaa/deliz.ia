@@ -30,5 +30,6 @@ export class ItemDetailComponent implements OnInit {
 
   onRemoveItem() {
     this.itemService.removeItem(this.id);
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
 }
