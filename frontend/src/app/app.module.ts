@@ -12,7 +12,7 @@ import { ItemEditComponent } from './items/item-edit/item-edit.component';
 import { FormsModule } from '@angular/forms';
 import { ItemComponent } from './items/item-list/item/item.component';
 import { ItemModalComponent } from './items/item-detail/item-modal/item-modal.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -30,7 +30,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
