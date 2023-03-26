@@ -11,7 +11,6 @@ import { ItemStartComponent } from './items/item-start/item-start.component';
 import { ItemEditComponent } from './items/item-edit/item-edit.component';
 import { FormsModule } from '@angular/forms';
 import { ItemComponent } from './items/item-list/item/item.component';
-import { ItemModalComponent } from './items/item-detail/item-modal/item-modal.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
@@ -23,8 +22,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     ItemListComponent,
     ItemStartComponent,
     ItemEditComponent,
-    ItemComponent,
-    ItemModalComponent
+    ItemComponent
   ],
   imports: [
     BrowserModule,

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Item } from '../item.model';
 import { ItemService } from '../item.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-item-detail',
@@ -13,7 +14,7 @@ export class ItemDetailComponent implements OnInit {
   item: Item;
   id: number;
 
-  constructor(private itemService: ItemService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private itemService: ItemService, private route: ActivatedRoute, private router: Router, private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(
@@ -32,4 +33,13 @@ export class ItemDetailComponent implements OnInit {
     this.itemService.removeItem(this.id);
     this.router.navigate(['../'], { relativeTo: this.route });
   }
+
+  open(content: any) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      if (result == 'Elimina') {
+        this.onRemoveItem();
+      } 
+    });
+  }
+
 }
