@@ -11,7 +11,8 @@ import { ItemStartComponent } from './items/item-start/item-start.component';
 import { ItemEditComponent } from './items/item-edit/item-edit.component';
 import { FormsModule } from '@angular/forms';
 import { ItemComponent } from './items/item-list/item/item.component';
-import { ItemModalComponent } from './items/item-edit/item-modal/item-modal.component';
+import { ItemModalComponent } from './items/item-detail/item-modal/item-modal.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ItemModalComponent } from './items/item-edit/item-modal/item-modal.comp
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
