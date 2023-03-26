@@ -26,6 +26,7 @@ frontend/.vscode/*
 
 # misc
 frontend/.sass-cache
+frontend/.angular/cache
 frontend/connect.lock
 frontend/coverage
 frontend/libpeerconnection.log

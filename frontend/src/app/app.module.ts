@@ -11,6 +11,7 @@ import { ItemStartComponent } from './items/item-start/item-start.component';
 import { ItemEditComponent } from './items/item-edit/item-edit.component';
 import { FormsModule } from '@angular/forms';
 import { ItemComponent } from './items/item-list/item/item.component';
+import { ItemModalComponent } from './items/item-edit/item-modal/item-modal.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ItemComponent } from './items/item-list/item/item.component';
     ItemListComponent,
     ItemStartComponent,
     ItemEditComponent,
-    ItemComponent
+    ItemComponent,
+    ItemModalComponent
   ],
   imports: [
     BrowserModule,
