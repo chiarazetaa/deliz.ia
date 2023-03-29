@@ -3,7 +3,7 @@
         <div class="navbar-start">
             <a class="navbar-brand" routerLink="/login">Deliz.ia</a>
         </div>
-        <div class="navbar-end">
+        <div class="navbar-end" *ngIf="currentUser">
             <button type="button" class="btn btn-outline-primary" (click)="logout()">Logout</button>
         </div>
     </div>
