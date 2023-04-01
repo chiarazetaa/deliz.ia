@@ -8,6 +8,6 @@
 </div>
 <div class="row">
     <div class="col-sm">
-        <app-item class="list-group" *ngFor="let itemEl of items; let i=index" [item]="itemEl" [index]="i"></app-item>
+        <app-item class="list-group" *ngFor="let itemEl of items;" [item]="itemEl" [index]="itemEl.id"></app-item>
     </div>
 </div>

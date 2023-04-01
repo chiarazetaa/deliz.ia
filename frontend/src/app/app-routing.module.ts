@@ -5,6 +5,7 @@ import { ItemDetailComponent } from './items/item-detail/item-detail.component';
 import { ItemEditComponent } from './items/item-edit/item-edit.component';
 import { ItemStartComponent } from './items/item-start/item-start.component';
 import { ItemsComponent } from './items/items.component';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { AuthGuard } from './_helpers/auth.guard';
 
 const routes: Routes = [
@@ -13,8 +14,9 @@ const routes: Routes = [
     { path: '', component: ItemStartComponent },
     { path: 'new', component: ItemEditComponent, canActivate: [AuthGuard] },
     { path: ':id', component: ItemDetailComponent },
-    { path: ':id/edit', component: ItemEditComponent, canActivate: [AuthGuard] },
+    { path: ':id/edit', component: ItemEditComponent, canActivate: [AuthGuard] }
   ] },
+  { path: 'shopping-cart', component: ShoppingCartComponent },
   { path: 'login', component: LoginComponent },
   { path: '**', redirectTo: '/items' }
 ];

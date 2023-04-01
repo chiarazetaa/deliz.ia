@@ -18,6 +18,7 @@ import { LoginComponent } from './login/login.component';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { authenticationInterceptor } from './_helpers/authentication.interceptor';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { authenticationInterceptor } from './_helpers/authentication.interceptor
     ItemStartComponent,
     ItemEditComponent,
     ItemComponent,
-    LoginComponent
+    LoginComponent,
+    ShoppingCartComponent
   ],
   imports: [
     BrowserModule,

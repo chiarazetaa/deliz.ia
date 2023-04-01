@@ -2,13 +2,14 @@ import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
 import { Item } from "../_models/item.model";
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ItemService {
 
     itemsChanged = new Subject<Item[]>();
 
     private items: Item[] = [
         new Item(
+            1111,
             'Tagliere del fattore',
             'Selezione di salumi e formaggi, giardiniera artigianale, confetture.',
             15,
@@ -16,6 +17,7 @@ export class ItemService {
             ['nota 1', 'nota 2']
         ),
         new Item(
+            2222,
             'Garganelli al ragù romagnolo',
             'Pasta all\'uovo tipica della romagna conditi con un delizioso sugo a base di carne.',
             8,
@@ -23,6 +25,7 @@ export class ItemService {
             ['Contiene glutine', 'nota test']
         ),
         new Item(
+            3333,
             'Tortellini in brodo',
             'Pasta all\'uovo con ripieno di carne.',
             13,
@@ -37,12 +40,12 @@ export class ItemService {
         return this.items.slice();
     }
 
-    getItem(index: number) {
-        return this.items[index];
+    getItemById(id: number) {
+        return this.items.find(el => el.id === id);
     }
 
-    saveItem(index: number, itemInfo: Item) {
-        const item = this.items[index];
+    saveItem(id: number, itemInfo: Item) {
+        const item = this.items.find(el => el.id === id);
         if (item) {
             item.name = itemInfo.name;
             item.description = itemInfo.description;
@@ -52,8 +55,21 @@ export class ItemService {
         }
     }
 
+    generateId() {
+        let val = Math.floor(1000 + Math.random() * 9000);
+        let idAlreadyExists = this.items.find(el => el.id === val);
+        if (idAlreadyExists) {
+            console.log('id already exists');
+            this.generateId();
+        } else {
+            return val;
+        }
+    }
+
     addItem(itemInfo: Item) {
+        const newId = this.generateId();
         const item = new Item(
+            newId,
             itemInfo.name,
             itemInfo.description,
             itemInfo.price,
@@ -64,7 +80,8 @@ export class ItemService {
         this.itemsChanged.next(this.items.slice());
     }
 
-    removeItem(index: number) {
+    removeItem(id: number) {
+        const index = this.items.findIndex(el => el.id === id);
         this.items.splice(index, 1);
         this.itemsChanged.next(this.items.slice());
     }
