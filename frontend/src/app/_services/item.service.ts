@@ -12,7 +12,7 @@ export class ItemService {
             1111,
             'Tagliere del fattore',
             'Selezione di salumi e formaggi, giardiniera artigianale, confetture.',
-            15,
+            15.90,
             'https://www.fattoincasadabenedetta.it/wp-content/uploads/2022/12/IDEA_DI_TAGLIERE_DI_SALUMI_E_FORMAGGI_PER_MILLE_OCCASIONI_SITO-4.jpg',
             ['nota 1', 'nota 2']
         ),
@@ -20,7 +20,7 @@ export class ItemService {
             2222,
             'Garganelli al ragù romagnolo',
             'Pasta all\'uovo tipica della romagna conditi con un delizioso sugo a base di carne.',
-            8,
+            8.50,
             'https://www.cirio.it/repository/ricettario/garganelli-al-ragas-di-anatra.jpg',
             ['Contiene glutine', 'nota test']
         ),
@@ -34,7 +34,9 @@ export class ItemService {
         )
     ];
 
-    constructor() {}
+    constructor() {
+        localStorage.setItem('items-menu', JSON.stringify(this.items));
+    }
 
     getItems() {
         return this.items.slice();
@@ -52,6 +54,9 @@ export class ItemService {
             item.price = itemInfo.price;
             item.picture = itemInfo.picture;
             item.notes = itemInfo.notes.toString().split(',');
+            // update items list
+            localStorage.setItem('items-menu', JSON.stringify(this.items));
+            this.itemsChanged.next(this.items);
         }
     }
 
@@ -76,12 +81,16 @@ export class ItemService {
             itemInfo.notes.toString().split(',')
         )
         this.items.push(item);
-        this.itemsChanged.next(this.items.slice());
+        // update items list
+        localStorage.setItem('items-menu', JSON.stringify(this.items));
+        this.itemsChanged.next(this.items);
     }
 
     removeItem(id: number) {
         const index = this.items.findIndex(el => el.id === id);
         this.items.splice(index, 1);
-        this.itemsChanged.next(this.items.slice());
+        // update items list
+        localStorage.setItem('items-menu', JSON.stringify(this.items));
+        this.itemsChanged.next(this.items);
     }
 }

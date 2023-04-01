@@ -23,6 +23,11 @@ export class ItemListComponent implements OnInit, OnDestroy {
     private authenticationService: AuthenticationService
   ) { 
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+    this.subscription = this.itemService.itemsChanged.subscribe(
+      (items: Item[]) => {
+        this.items = items;
+      }
+    );
   }
 
   ngOnInit(): void {
