@@ -4,8 +4,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { delay, mergeMap } from 'rxjs/operators';
 
 let users = [
-    { id: 1, username: 'owner1', password: 'owner1' },
-    { id: 2, username: 'owner2', password: 'owner2' },
+    { id: 1, username: 'owner', password: 'owner' }
 ];
 
 @Injectable()
