@@ -57,5 +57,21 @@ export class CartService {
         this.cartListChanged.next([]);
     }
 
-    
+    updateCartList(items: Item[]) {
+        let currentCartList = this.getCartList();
+        let newCartList: CartItem[] = [];
+        for (let cartItem of currentCartList) {
+            let itemFound = items.find(el => el.id === cartItem.item.id);
+            if (itemFound) {
+                cartItem.item = itemFound;
+            } else {
+                cartItem.quantity = 0;
+            }
+            newCartList.push(new CartItem(cartItem.item, cartItem.quantity));
+        }
+        newCartList = newCartList.filter(item => item.quantity > 0);
+        // update cart list
+        localStorage.setItem('shopping-cart', JSON.stringify(newCartList));
+        this.cartListChanged.next(newCartList);
+    }
 }
