@@ -67,9 +67,8 @@ export class ItemService {
     }
 
     addItem(itemInfo: Item) {
-        const newId = this.generateId();
         const item = new Item(
-            newId,
+            itemInfo.id,
             itemInfo.name,
             itemInfo.description,
             itemInfo.price,
