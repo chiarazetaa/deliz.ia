@@ -17,7 +17,7 @@ import { ItemEditComponent } from './items/item-edit/item-edit.component';
 import { LoginComponent } from './login/login.component';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
-import { fakeBackendProvider } from './_helpers/fake-backend';
+import { authenticationInterceptor } from './_helpers/authentication.interceptor';
 
 @NgModule({
   declarations: [
@@ -43,8 +43,7 @@ import { fakeBackendProvider } from './_helpers/fake-backend';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    // provider used to create fake backend
-    fakeBackendProvider
+    authenticationInterceptor
   ],
   bootstrap: [AppComponent]
 })
