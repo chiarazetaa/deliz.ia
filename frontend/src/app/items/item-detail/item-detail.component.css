@@ -18,3 +18,7 @@ ul li:last-child:after {
 small {
     color: #666;
 }
+
+.fit-content {
+    width: fit-content;
+}

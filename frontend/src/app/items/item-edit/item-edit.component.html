@@ -1,30 +1,30 @@
 <div class="mb-3">
     <label for="picture" class="form-label">Url immagine</label>
     <input type="text" class="form-control" id="picture" [(ngModel)]="itemPicture"
-        placeholder="https://images.prismic.io/eataly-bbb/19d60457-1823-47a3-898a-edbda42ec9e7_tortellini-brodo.jpg">
+        placeholder="es: https://images.prismic.io/eataly-bbb/19d60457-1823-47a3-898a-edbda42ec9e7_tortellini-brodo.jpg">
 </div>
 <div class="mb-3">
     <label for="name" class="form-label">Nome</label>
-    <input type="text" class="form-control" id="name" [(ngModel)]="itemName" placeholder="Tortellini in brodo">
+    <input type="text" class="form-control" id="name" [(ngModel)]="itemName" placeholder="es: Tortellini in brodo">
 </div>
 <div class="mb-3">
     <label for="description" class="form-label">Descrizione</label>
     <textarea class="form-control" id="description" rows="3" [(ngModel)]="itemDescription"
-        placeholder="Pasta all'uovo con ripieno di carne"></textarea>
+        placeholder="es: Pasta all'uovo con ripieno di carne"></textarea>
 </div>
 <div class="mb-3">
     <label for="price" class="form-label">Prezzo</label>
-    <input type="number" class="form-control" id="price" [(ngModel)]="itemPrice" placeholder="9" min="1">
+    <input type="number" class="form-control" id="price" [(ngModel)]="itemPrice" placeholder="es: 9" min="1">
 </div>
 <div class="mb-3">
     <label for="notes" class="form-label">Note</label>
-    <textarea class="form-control" id="notes" rows="3" [(ngModel)]="itemNotes" placeholder="nota1, nota2"></textarea>
+    <textarea class="form-control" id="notes" rows="3" [(ngModel)]="itemNotes" placeholder="es: nota1, nota2"></textarea>
     <small>Separare le note con una virgola</small>
 </div>
 <hr>
 <div class="row">
     <div class="col-sm d-grid gap-2 d-md-flex justify-content-md-end">
-        <button type="button" class="btn btn-primary" *ngIf="editMode" (click)="onSaveItem()">Salva</button>
-        <button type="button" class="btn btn-primary" *ngIf="!editMode" (click)="onAddItem()">Salva</button>
+        <button type="button" class="btn btn-primary" *ngIf="editMode" (click)="onSaveItem()" [disabled]="disabledButton()">Salva</button>
+        <button type="button" class="btn btn-primary" *ngIf="!editMode" (click)="onAddItem()" [disabled]="disabledButton()">Salva</button>
     </div>
 </div>
