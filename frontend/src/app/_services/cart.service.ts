@@ -19,6 +19,12 @@ export class CartService {
         return (this.cartList) ? this.cartList : [];
     }
 
+    getCartItem(item: Item) {
+        let currentCartList = this.getCartList();
+        let cartItem = currentCartList.find(el => el.item.id === item.id);
+        return (cartItem && cartItem.quantity) ? cartItem.quantity : 0;
+    }
+
     addItemToCart(item: Item) {
         let currentCartList = this.getCartList();
         // check if item is already in the cart

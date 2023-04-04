@@ -23,6 +23,9 @@
     </div>
 </div>
 <div class="row" *ngIf="!currentUser">
+    <div class="col-sm d-md-flex justify-content-md-start">
+        <h4 class="me-2" style="padding-top: 8px;">Carrello: {{ cartItemQuantity }}</h4>
+    </div>
     <div class="col-sm d-md-flex justify-content-md-end">
         <button type="button" class="btn btn-primary fit-content" (click)="onAddItemToCart()"><i class="bi bi-cart4" style="font-size: 1.2em;"></i></button>
     </div>

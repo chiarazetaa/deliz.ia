@@ -36,12 +36,22 @@
                 </tbody>
             </table>
             <div class="col-sm d-md-flex justify-content-md-end" *ngIf="cartList.length > 0">
-                <button type="button" class="btn btn-danger fit-content me-2" (click)="onRemoveAllCartItems()">Elimina ordine</button>
-                <button type="button" class="btn btn-success fit-content" (click)="open(orderModal)">Ordina</button>
+                <button type="button" class="btn btn-danger fit-content me-2" (click)="openDeleteOrderModal(deleteModal)">Elimina ordine</button>
+                <button type="button" class="btn btn-success fit-content" (click)="openOrderModal(orderModal)">Ordina</button>
             </div>
         </div>
     </div>
 </div>
+
+<ng-template #deleteModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Vuoi eliminare il tuo ordine?</h4>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Elimina')">Sì</button>
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Annulla')">No</button>
+    </div>
+</ng-template>
 
 <ng-template #orderModal let-modal>
     <div class="modal-header">

@@ -72,8 +72,17 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
     this.cartListSubscription.unsubscribe();
   }
 
+  // delete order modal
+  openDeleteOrderModal(content: any) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      if (result == 'Elimina') {
+        this.onRemoveAllCartItems();
+      } 
+    });
+  }
+
   // order modal
-  open(content: any) {
+  openOrderModal(content: any) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       if (result == 'Ok') {
         this.onRemoveAllCartItems();
