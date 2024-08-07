@@ -9,25 +9,25 @@
         <p>{{ item.description }}</p>
         <p><i>Prezzo: {{ item.price }} €</i></p>
         <ul>
-            <li *ngFor="let note of item.notes">
+            @for (note of item.notes; track note) {
+            <li>
                 <small>{{ note }}</small>
             </li>
+            }
         </ul>
     </div>
 </div>
 <hr>
-<div class="row" *ngIf="currentUser">
-    <div class="col-sm d-md-flex justify-content-md-end">
-        <button type="button" class="btn btn-primary fit-content me-2" (click)="onEditItem()"><i class="bi bi-pencil-fill" style="font-size: 1.2em;"></i></button>
-        <button type="button" class="btn btn-danger fit-content" (click)="open(deleteModal)"><i class="bi bi-trash-fill" style="font-size: 1.2em;"></i></button>
-    </div>
-</div>
-<div class="row" *ngIf="!currentUser">
+
+
+<div class="row">
     <div class="col-sm d-md-flex justify-content-md-start">
         <h4 class="me-2" style="padding-top: 8px;">Carrello: {{ cartItemQuantity }}</h4>
     </div>
     <div class="col-sm d-md-flex justify-content-md-end">
-        <button type="button" class="btn btn-primary fit-content" (click)="onAddItemToCart()"><i class="bi bi-cart4" style="font-size: 1.2em;"></i></button>
+        <button type="button" class="btn btn-primary fit-content me-2" (click)="onAddItemToCart()"><i class="bi bi-cart4" style="font-size: 1.2em;"></i></button>
+        <button type="button" class="btn btn-primary fit-content me-2" (click)="onEditItem()"><i class="bi bi-pencil-fill" style="font-size: 1.2em;"></i></button>
+        <button type="button" class="btn btn-danger fit-content" (click)="open(deleteModal)"><i class="bi bi-trash-fill" style="font-size: 1.2em;"></i></button>
     </div>
 </div>
 

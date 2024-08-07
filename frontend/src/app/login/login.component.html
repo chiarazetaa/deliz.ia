@@ -2,26 +2,36 @@
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="w-50 border border-1 rounded p-3 bg-light">
         <h2>Login</h2>
         <br>
-        <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+        @if (error) {
+        <div class="alert alert-danger">{{ error }}</div>
+        }
         <div class="mb-3">
             <label for="username" class="form-label">Username</label>
-            <input type="text" formControlName="username" class="form-control"
-                [ngClass]="{ 'is-invalid': submitted && credentials.username.errors }" />
-            <div *ngIf="submitted && credentials.username.errors" class="invalid-feedback">
-                <div *ngIf="credentials.username.errors.required">Campo obbligatorio</div>
+            <input type="text" formControlName="username" class="form-control" />
+            @if (submitted && credentials['username'].errors) {
+            <div class="invalid-feedback">
+                @if (credentials['username'].errors['required']) {
+                <div>Campo obbligatorio</div>
+                }
             </div>
+            }
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">Password</label>
-            <input type="password" formControlName="password" class="form-control"
-                [ngClass]="{ 'is-invalid': submitted && credentials.password.errors }" />
-            <div *ngIf="submitted && credentials.password.errors" class="invalid-feedback">class="border border-secondary"
-                <div *ngIf="credentials.password.errors.required">Campo obbligatorio</div>
+            <input type="password" formControlName="password" class="form-control" />
+            @if (submitted && credentials['password'].errors) {
+            <div class="invalid-feedback">class="border border-secondary"
+                @if (credentials['password'].errors['required']) {
+                <div>Campo obbligatorio</div>
+                }
             </div>
+            }
         </div>
         <div class="form-group">
             <button [disabled]="loading" class="btn btn-primary">
-                <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+                @if (loading) {
+                <span class="spinner-border spinner-border-sm me-2"></span>
+                }
                 Login
             </button>
         </div>

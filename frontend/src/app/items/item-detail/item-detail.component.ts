@@ -1,37 +1,41 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Item } from '../../_models/item.model';
-import { ItemService } from '../../_services/item.service';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import { AuthenticationService } from 'src/app/_services/authentication.service';
-import { CartService } from 'src/app/_services/cart.service';
+import { Item } from '../../utilities/models/item.model';
 import { Subscription } from 'rxjs';
-import { CartItem } from 'src/app/_models/cart-item.model';
+import { ItemsService } from '../../utilities/services/items.service';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CartService } from '../../utilities/services/cart.service';
+import { Cart } from '../../utilities/models/cart.model';
 
 @Component({
   selector: 'app-item-detail',
+  standalone: true,
+  imports: [],
   templateUrl: './item-detail.component.html',
-  styleUrls: ['./item-detail.component.css']
+  styleUrl: './item-detail.component.scss'
 })
 export class ItemDetailComponent implements OnInit, OnDestroy {
-
-  currentUser: any;
-  item: Item;
-  cartItemQuantity: number;
+  item: Item = {
+    id: 0,
+    name: '',
+    description: '',
+    price: 0,
+    picture: '',
+    notes: ['']
+  };
+  cartItemQuantity: number = 0;
   private cartItemSubscription: Subscription;
 
   constructor(
-    private itemService: ItemService, 
+    private itemService: ItemsService, 
     private route: ActivatedRoute, 
     private router: Router, 
     private modalService: NgbModal,
-    private authenticationService: AuthenticationService,
     private cartService: CartService
   ) { 
-    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     // subscription to cart list
     this.cartItemSubscription = this.cartService.cartListChanged.subscribe(
-      (cartList: CartItem[]) => {
+      (cartList: Cart[]) => {
         let itemExistsInCart = cartList.find(el => el.item.id === this.item.id);
         this.cartItemQuantity = (itemExistsInCart && itemExistsInCart.quantity) ? itemExistsInCart.quantity : 0;
       }
@@ -41,7 +45,8 @@ export class ItemDetailComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.route.params.subscribe(
       (params: Params) => {
-        this.item = this.itemService.getItemById(+params['id']);
+        const itemFound = this.itemService.getItemById(+params['id']);
+        if (itemFound) this.item = itemFound;
         if (!this.item) {
           this.router.navigate(['/items']);
         }
@@ -49,7 +54,7 @@ export class ItemDetailComponent implements OnInit, OnDestroy {
         this.cartItemQuantity = this.cartService.getCartItem(this.item);
         // subscription to cart list
         this.cartItemSubscription = this.cartService.cartListChanged.subscribe(
-          (cartList: CartItem[]) => {
+          (cartList: Cart[]) => {
             let itemExistsInCart = cartList.find(el => el.item.id === this.item.id);
             this.cartItemQuantity = (itemExistsInCart && itemExistsInCart.quantity) ? itemExistsInCart.quantity : 0;
           }
@@ -64,7 +69,7 @@ export class ItemDetailComponent implements OnInit, OnDestroy {
 
   onRemoveItem() {
     this.itemService.removeItem(this.item.id);
-    this.router.navigate(['../'], { relativeTo: this.route });
+    this.router.navigate(['/items']);
   }
 
   onAddItemToCart() {

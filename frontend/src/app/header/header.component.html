@@ -3,20 +3,30 @@
         <a class="navbar-brand" routerLink="/">
             <img src="../../favicon.ico" class="image-resonsive navbar-img"> Deliz.ia
         </a>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent" *ngIf="!currentUser && currentPath !== '/login'">
+        <!-- @if (!currentUser && currentPath !== '/login') { -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" routerLink="/shopping-cart" routerLinkActive="active-link"><i class="bi bi-cart4" style="font-size: 1.2em;"></i> Carrello</a>
+                    <a class="nav-link" routerLink="/shopping-cart" routerLinkActive="active-link">
+                        <i class="bi bi-cart4" style="font-size: 1.2em;"></i> Carrello
+                    </a>
                 </li>
             </ul>
         </div>
-        <div *ngIf="currentPath !== '/login'">
-            <div class="navbar-end" *ngIf="!currentUser">
+        <!-- } -->
+        <!-- @if (currentPath !== '/login') {
+        <div>
+            @if (!currentUser) {
+            <div class="navbar-end">
                 <button type="button" class="btn btn-outline-primary larger-size" (click)="login()">Login</button>
             </div>
-            <div class="navbar-end" *ngIf="currentUser">
+            }
+            @if (currentUser) {
+            <div class="navbar-end">
                 <button type="button" class="btn btn-outline-primary larger-size" (click)="logout()">Logout</button>
             </div>
+            }
         </div>
+        } -->
     </div>
 </nav>

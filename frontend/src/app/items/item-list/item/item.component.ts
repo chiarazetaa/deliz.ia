@@ -1,18 +1,22 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Item } from '../../../_models/item.model';
+import { Component, Input } from '@angular/core';
+import { Item } from '../../../utilities/models/item.model';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-item',
+  standalone: true,
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './item.component.html',
-  styleUrls: ['./item.component.css']
+  styleUrl: './item.component.scss'
 })
-export class ItemComponent implements OnInit {
-  @Input() item: Item;
-  @Input() index: number;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+export class ItemComponent {
+  @Input() item: Item = {
+    id: 0,
+    name: '',
+    description: '',
+    price: 0,
+    picture: '',
+    notes: ['']
+  };
+  @Input() index: number = 0;
 }

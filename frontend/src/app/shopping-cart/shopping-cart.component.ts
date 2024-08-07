@@ -1,28 +1,29 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Cart } from '../utilities/models/cart.model';
 import { Subscription } from 'rxjs';
-import { CartItem } from '../_models/cart-item.model';
-import { Item } from '../_models/item.model';
-import { CartService } from '../_services/cart.service';
-import { ItemService } from '../_services/item.service';
+import { CartService } from '../utilities/services/cart.service';
+import { ItemsService } from '../utilities/services/items.service';
+import { Item } from '../utilities/models/item.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-shopping-cart',
+  standalone: true,
+  imports: [],
   templateUrl: './shopping-cart.component.html',
-  styleUrls: ['./shopping-cart.component.css']
+  styleUrl: './shopping-cart.component.scss'
 })
 export class ShoppingCartComponent implements OnInit, OnDestroy {
-
-  cartList: CartItem[];
+  cartList: Cart[] = [];
   private cartListSubscription: Subscription;
 
   constructor(
     private cartService: CartService,
-    private itemService: ItemService,
+    private itemService: ItemsService,
     private modalService: NgbModal
   ) {
     this.cartListSubscription = this.cartService.cartListChanged.subscribe(
-      (cartList: CartItem[]) => {
+      (cartList: Cart[]) => {
         this.cartList = cartList;
       }
     );
@@ -32,7 +33,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.cartList = this.cartService.getCartList();
     this.cartListSubscription = this.cartService.cartListChanged.subscribe(
-      (cartList: CartItem[]) => {
+      (cartList: Cart[]) => {
         this.cartList = cartList;
       }
     );
@@ -43,7 +44,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
     return this.cartService.getCartList();
   }
 
-  getSubtotal(price, quantity) {
+  getSubtotal(price: number, quantity: number) {
     let subtotal = price * quantity;
     return subtotal;
   }
@@ -56,7 +57,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
     return total;
   }
 
-  changeQuantity(cartItem: CartItem, action: string) {
+  changeQuantity(cartItem: Cart, action: string) {
     this.cartService.changeQuantity(cartItem, action);
   }
 
@@ -89,5 +90,4 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
       } 
     });
   }
-
 }

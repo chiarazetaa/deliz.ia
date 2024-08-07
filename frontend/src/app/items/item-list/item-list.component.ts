@@ -1,28 +1,26 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Item } from '../../utilities/models/item.model';
 import { Subscription } from 'rxjs';
-import { AuthenticationService } from 'src/app/_services/authentication.service';
-import { Item } from '../../_models/item.model';
-import { ItemService } from '../../_services/item.service';
+import { ItemsService } from '../../utilities/services/items.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ItemComponent } from './item/item.component';
 
 @Component({
   selector: 'app-item-list',
+  standalone: true,
+  imports: [ItemComponent],
   templateUrl: './item-list.component.html',
-  styleUrls: ['./item-list.component.css']
+  styleUrl: './item-list.component.scss'
 })
 export class ItemListComponent implements OnInit, OnDestroy {
-
-  currentUser: any;
-  items: Item[];
+  items: Item[] = [];
   private itemsSubscription: Subscription;
 
   constructor(
-    private itemService: ItemService, 
+    private itemService: ItemsService, 
     private router: Router,
     private route: ActivatedRoute,
-    private authenticationService: AuthenticationService
   ) { 
-    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     this.itemsSubscription = this.itemService.itemsChanged.subscribe(
       (items: Item[]) => {
         this.items = items;

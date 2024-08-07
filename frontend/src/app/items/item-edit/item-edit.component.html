@@ -18,13 +18,19 @@
 </div>
 <div class="mb-3">
     <label for="notes" class="form-label">Note</label>
-    <textarea class="form-control" id="notes" rows="3" [(ngModel)]="itemNotes" placeholder="es: nota1, nota2"></textarea>
+    <textarea class="form-control" id="notes" rows="3" [(ngModel)]="itemNotes"
+        placeholder="es: nota1, nota2"></textarea>
     <small>Separare le note con una virgola</small>
 </div>
 <hr>
 <div class="row">
     <div class="col-sm d-grid gap-2 d-md-flex justify-content-md-end">
-        <button type="button" class="btn btn-primary" *ngIf="editMode" (click)="onSaveItem()" [disabled]="disabledButton()">Salva</button>
-        <button type="button" class="btn btn-primary" *ngIf="!editMode" (click)="onAddItem()" [disabled]="disabledButton()">Salva</button>
+        @if (editMode) {
+        <button type="button" class="btn btn-primary" (click)="onSaveItem()"
+            [disabled]="disabledButton()">Salva</button>
+        }
+        @else {
+        <button type="button" class="btn btn-primary" (click)="onAddItem()" [disabled]="disabledButton()">Salva</button>
+        }
     </div>
 </div>
