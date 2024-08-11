@@ -1,4 +1,4 @@
-# Deliz.ia Front-end
+# Deliz.ia (frontend)
 
 An Angular application for viewing and ordering menu items.
 
@@ -20,9 +20,9 @@ An Angular application for viewing and ordering menu items.
 3. Install dependencies: `npm install`
 
 ### Run the Application
-1. Start the Angular frontend:
-   - Run the Angular development server: `ng serve`
-   - Open your web browser and go to http://localhost:4200/
+Start the Angular frontend:
+- Run the Angular development server: `ng serve`
+- Open your web browser and go to http://localhost:4200/
 
 ## Features
 - Select an item from the items list.
