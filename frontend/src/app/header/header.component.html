@@ -1,7 +1,9 @@
 <nav class="navbar navbar-expand-sm">
     <div class="container-fluid">
         <div class="navbar-start">
-            <a class="navbar-brand" routerLink="/">Deliz.ia</a>
+            <a class="navbar-brand" routerLink="/">
+                <img src="../../favicon.ico" class="image-resonsive" style="max-height: 30px; padding-bottom: 5px;"> Deliz.ia
+            </a>
         </div>
         <div *ngIf="currentPath !== '/login'">
             <div class="navbar-end" *ngIf="!currentUser">

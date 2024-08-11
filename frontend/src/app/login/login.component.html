@@ -1,6 +1,7 @@
 <div class="row d-flex justify-content-center">
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="w-50">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="w-50 border border-1 rounded p-3 bg-light">
         <h2>Login</h2>
+        <br>
         <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
         <div class="mb-3">
             <label for="username" class="form-label">Username</label>
@@ -14,7 +15,7 @@
             <label for="password" class="form-label">Password</label>
             <input type="password" formControlName="password" class="form-control"
                 [ngClass]="{ 'is-invalid': submitted && credentials.password.errors }" />
-            <div *ngIf="submitted && credentials.password.errors" class="invalid-feedback">
+            <div *ngIf="submitted && credentials.password.errors" class="invalid-feedback">class="border border-secondary"
                 <div *ngIf="credentials.password.errors.required">Campo obbligatorio</div>
             </div>
         </div>
