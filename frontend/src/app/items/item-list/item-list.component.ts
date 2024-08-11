@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { Item } from '../item.model';
-import { ItemService } from '../item.service';
+import { Item } from '../../_models/item.model';
+import { ItemService } from '../../_services/item.service';
 
 @Component({
   selector: 'app-item-list',
@@ -14,7 +14,11 @@ export class ItemListComponent implements OnInit, OnDestroy {
   items: Item[];
   private subscription: Subscription;
 
-  constructor(private itemService: ItemService, private router: Router, private route: ActivatedRoute) { }
+  constructor(
+    private itemService: ItemService, 
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
     this.items = this.itemService.getItems();

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Item } from '../item.model';
-import { ItemService } from '../item.service';
+import { Item } from '../../_models/item.model';
+import { ItemService } from '../../_services/item.service';
 
 @Component({
   selector: 'app-item-edit',
@@ -19,7 +19,11 @@ export class ItemEditComponent implements OnInit {
   itemPicture = '';
   itemNotes = [];
 
-  constructor(private route: ActivatedRoute, private itemService: ItemService, private router: Router ) { }
+  constructor(
+    private route: ActivatedRoute, 
+    private itemService: ItemService, 
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(
