@@ -1,4 +1,4 @@
-<div *ngIf="currentUser">
+<div>
     <div class="row">
         <div class="col-sm">
             <button class="btn btn-success" (click)="onNewItem()">Aggiungi elemento</button>
@@ -8,6 +8,8 @@
 </div>
 <div class="row">
     <div class="col-sm">
-        <app-item class="list-group" *ngFor="let itemEl of items;" [item]="itemEl" [index]="itemEl.id"></app-item>
+        @for (itemEl of items; track itemEl) {
+            <app-item class="list-group" [item]="itemEl" [index]="itemEl.id"></app-item>
+        }
     </div>
 </div>

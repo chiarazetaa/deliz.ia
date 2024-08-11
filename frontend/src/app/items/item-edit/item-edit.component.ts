@@ -1,28 +1,38 @@
 import { Component, OnInit } from '@angular/core';
+import { Item } from '../../utilities/models/item.model';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Item } from '../../_models/item.model';
-import { ItemService } from '../../_services/item.service';
+import { ItemsService } from '../../utilities/services/items.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-item-edit',
+  standalone: true,
+  imports: [FormsModule],
   templateUrl: './item-edit.component.html',
-  styleUrls: ['./item-edit.component.css']
+  styleUrl: './item-edit.component.scss'
 })
 export class ItemEditComponent implements OnInit {
-  id: number;
+  id: number = 0;
   editMode = false;
 
-  item: Item;
-  itemId = null;
+  item: Item = {
+    id: 0,
+    name: '',
+    description: '',
+    price: 0,
+    picture: '',
+    notes: ['']
+  };
+  itemId = 0;
   itemName = '';
   itemDescription = '';
-  itemPrice = null;
+  itemPrice = 0;
   itemPicture = '';
-  itemNotes = [];
+  itemNotes = [''];
 
   constructor(
     private route: ActivatedRoute, 
-    private itemService: ItemService, 
+    private itemService: ItemsService, 
     private router: Router
   ) { }
 
@@ -35,7 +45,8 @@ export class ItemEditComponent implements OnInit {
     )
 
     if (this.editMode) {
-      this.item = this.itemService.getItemById(this.id);
+      const itemFound = this.itemService.getItemById(this.id);
+      if (itemFound) this.item = itemFound;
       this.itemName = this.item.name;
       this.itemDescription = this.item.description;
       this.itemPrice = this.item.price;
@@ -46,13 +57,13 @@ export class ItemEditComponent implements OnInit {
 
   onSaveItem() {
     this.itemService.saveItem(this.item.id, { id: this.item.id, name: this.itemName, description: this.itemDescription, price: this.itemPrice, picture: this.itemPicture, notes: this.itemNotes });
-    this.router.navigate(['../'], { relativeTo: this.route });
+    this.router.navigate(['/items']);
   }
 
   onAddItem() {
     this.itemId = this.itemService.generateId();
     this.itemService.addItem({ id: this.itemId, name: this.itemName, description: this.itemDescription, price: this.itemPrice, picture: this.itemPicture, notes: this.itemNotes });
-    this.router.navigate(['../'], { relativeTo: this.route });
+    this.router.navigate(['/items']);
   }
 
   disabledButton() {
@@ -61,5 +72,4 @@ export class ItemEditComponent implements OnInit {
     }
     return false;
   }
-
 }

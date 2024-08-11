@@ -1,16 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { ItemService } from '../_services/item.service';
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { ItemListComponent } from './item-list/item-list.component';
 
 @Component({
   selector: 'app-items',
+  standalone: true,
+  imports: [RouterOutlet, ItemListComponent],
   templateUrl: './items.component.html',
-  styleUrls: ['./items.component.css']
+  styleUrl: './items.component.scss'
 })
-export class ItemsComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+export class ItemsComponent {
 
 }

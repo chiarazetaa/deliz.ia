@@ -1,12 +1,15 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
-# compiled output
+# Compiled output
 frontend/dist
 frontend/tmp
 frontend/out-tsc
+frontend/bazel-out
 
-# dependencies
+# Node
 frontend/node_modules
+frontend/npm-debug.log
+frontend/yarn-error.log
 
 # IDEs and editors
 frontend/.idea
@@ -19,24 +22,16 @@ frontend/*.sublime-workspace
 
 # IDE - VSCode
 frontend/.vscode/*
-!frontend/.vscode/settings.json
-!frontend/.vscode/tasks.json
-!frontend/.vscode/launch.json
-!frontend/.vscode/extensions.json
+frontend/.history/*
 
-# misc
-frontend/.sass-cache
+# Miscellaneous
 frontend/.angular/cache
+frontend/.sass-cache/
 frontend/connect.lock
 frontend/coverage
 frontend/libpeerconnection.log
-frontend/npm-debug.log
 frontend/testem.log
 frontend/typings
-
-# e2e
-frontend/e2e/*.js
-frontend/e2e/*.map
 
 # System Files
 frontend/.DS_Store
