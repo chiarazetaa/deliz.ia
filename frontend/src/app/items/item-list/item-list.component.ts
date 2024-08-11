@@ -14,7 +14,7 @@ export class ItemListComponent implements OnInit, OnDestroy {
 
   currentUser: any;
   items: Item[];
-  private subscription: Subscription;
+  private itemsSubscription: Subscription;
 
   constructor(
     private itemService: ItemService, 
@@ -23,7 +23,7 @@ export class ItemListComponent implements OnInit, OnDestroy {
     private authenticationService: AuthenticationService
   ) { 
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-    this.subscription = this.itemService.itemsChanged.subscribe(
+    this.itemsSubscription = this.itemService.itemsChanged.subscribe(
       (items: Item[]) => {
         this.items = items;
       }
@@ -32,7 +32,7 @@ export class ItemListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.items = this.itemService.getItems();
-    this.subscription = this.itemService.itemsChanged.subscribe(
+    this.itemsSubscription = this.itemService.itemsChanged.subscribe(
       (items: Item[]) => {
         this.items = items;
       }
@@ -44,6 +44,6 @@ export class ItemListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.itemsSubscription.unsubscribe();
   }
 }

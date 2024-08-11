@@ -2,7 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { CartItem } from '../_models/cart-item.model';
+import { Item } from '../_models/item.model';
 import { CartService } from '../_services/cart.service';
+import { ItemService } from '../_services/item.service';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -12,27 +14,29 @@ import { CartService } from '../_services/cart.service';
 export class ShoppingCartComponent implements OnInit, OnDestroy {
 
   cartList: CartItem[];
-  private subscription: Subscription;
+  private cartListSubscription: Subscription;
 
   constructor(
     private cartService: CartService,
+    private itemService: ItemService,
     private modalService: NgbModal
   ) {
-    //this.cartService.updateCartContent();
-    this.subscription = this.cartService.cartListChanged.subscribe(
+    this.cartListSubscription = this.cartService.cartListChanged.subscribe(
       (cartList: CartItem[]) => {
         this.cartList = cartList;
       }
     );
+    this.updateCartList(this.itemService.getItems());
   }
 
   ngOnInit(): void {
     this.cartList = this.cartService.getCartList();
-    this.subscription = this.cartService.cartListChanged.subscribe(
+    this.cartListSubscription = this.cartService.cartListChanged.subscribe(
       (cartList: CartItem[]) => {
         this.cartList = cartList;
       }
     );
+    this.updateCartList(this.itemService.getItems());
   }
 
   getCartList() {
@@ -60,10 +64,13 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
     this.cartService.removeAllCartItems();
   }
 
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+  updateCartList(items: Item[]) {
+    this.cartService.updateCartList(items);
   }
 
+  ngOnDestroy(): void {
+    this.cartListSubscription.unsubscribe();
+  }
 
   // order modal
   open(content: any) {
@@ -73,9 +80,5 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
       } 
     });
   }
-
-
-
-  
 
 }
