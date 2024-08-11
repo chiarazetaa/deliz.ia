@@ -5,10 +5,11 @@ import { ItemDetailComponent } from './items/item-detail/item-detail.component';
 import { ItemEditComponent } from './items/item-edit/item-edit.component';
 import { ItemStartComponent } from './items/item-start/item-start.component';
 import { ItemsComponent } from './items/items.component';
+import { AuthGuard } from './_helpers/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/items', pathMatch: 'full' },
-  { path: 'items', component: ItemsComponent, children: [
+  { path: 'items', component: ItemsComponent, canActivate: [AuthGuard], children: [
     { path: '', component: ItemStartComponent },
     { path: 'new', component: ItemEditComponent },
     { path: ':id', component: ItemDetailComponent },
