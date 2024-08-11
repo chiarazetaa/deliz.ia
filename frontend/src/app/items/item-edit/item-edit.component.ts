@@ -15,7 +15,7 @@ export class ItemEditComponent implements OnInit {
   item: Item;
   itemName = '';
   itemDescription = '';
-  itemPrice = 1;
+  itemPrice = null;
   itemPicture = '';
   itemNotes = [];
 
@@ -51,6 +51,13 @@ export class ItemEditComponent implements OnInit {
   onAddItem() {
     this.itemService.addItem({ name: this.itemName, description: this.itemDescription, price: this.itemPrice, picture: this.itemPicture, notes: this.itemNotes });
     this.router.navigate(['../'], { relativeTo: this.route });
+  }
+
+  disabledButton() {
+    if (!this.itemName || !this.itemDescription || !this.itemPrice) {
+      return true;
+    }
+    return false;
   }
 
 }
