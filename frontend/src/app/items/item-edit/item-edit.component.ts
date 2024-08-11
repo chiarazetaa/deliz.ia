@@ -34,7 +34,7 @@ export class ItemEditComponent implements OnInit {
     )
 
     if (this.editMode) {
-      this.item = this.itemService.getItem(this.id);
+      this.item = this.itemService.getItemById(this.id);
       this.itemName = this.item.name;
       this.itemDescription = this.item.description;
       this.itemPrice = this.item.price;
@@ -44,12 +44,12 @@ export class ItemEditComponent implements OnInit {
   }
 
   onSaveItem() {
-    this.itemService.saveItem(this.id, { name: this.itemName, description: this.itemDescription, price: this.itemPrice, picture: this.itemPicture, notes: this.itemNotes });
+    this.itemService.saveItem(this.item.id, { id: this.item.id, name: this.itemName, description: this.itemDescription, price: this.itemPrice, picture: this.itemPicture, notes: this.itemNotes });
     this.router.navigate(['../'], { relativeTo: this.route });
   }
 
   onAddItem() {
-    this.itemService.addItem({ name: this.itemName, description: this.itemDescription, price: this.itemPrice, picture: this.itemPicture, notes: this.itemNotes });
+    this.itemService.addItem({ id: null, name: this.itemName, description: this.itemDescription, price: this.itemPrice, picture: this.itemPicture, notes: this.itemNotes });
     this.router.navigate(['../'], { relativeTo: this.route });
   }
 

@@ -14,7 +14,6 @@ export class ItemDetailComponent implements OnInit {
 
   currentUser: any;
   item: Item;
-  id: number;
 
   constructor(
     private itemService: ItemService, 
@@ -29,8 +28,10 @@ export class ItemDetailComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(
       (params: Params) => {
-        this.id = +params['id'];
-        this.item = this.itemService.getItem(this.id);
+        this.item = this.itemService.getItemById(+params['id']);
+        if (!this.item) {
+          this.router.navigate(['/items']);
+        }
       }
     );
   }
@@ -40,7 +41,7 @@ export class ItemDetailComponent implements OnInit {
   }
 
   onRemoveItem() {
-    this.itemService.removeItem(this.id);
+    this.itemService.removeItem(this.item.id);
     this.router.navigate(['../'], { relativeTo: this.route });
   }
 

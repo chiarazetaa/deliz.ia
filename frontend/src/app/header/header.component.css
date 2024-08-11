@@ -11,3 +11,15 @@ nav {
     max-height: 1.3em;
     padding-bottom: 8px;
 }
+
+.nav-item:first-child {
+    border-left: solid 1px lightgray;
+}
+
+.active-link {
+    background-color: #d7d7d7;
+}
+
+.larger-size {
+    font-size: larger;
+}
