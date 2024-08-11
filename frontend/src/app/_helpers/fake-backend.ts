@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
-import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
+import { delay, mergeMap } from 'rxjs/operators';
 
 let users = [
-    { id: 1, firstName: 'Jason', lastName: 'Watmore', username: 'test', password: 'test' }
+    { id: 1, username: 'owner1', password: 'owner1' },
+    { id: 2, username: 'owner2', password: 'owner2' },
 ];
 
 @Injectable()
@@ -13,11 +14,10 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         const { url, method, headers, body } = request;
 
         // wrap in delayed observable to simulate server api call
+        // of converts the arguments to an observable sequence
         return of(null)
             .pipe(mergeMap(handleRoute))
-            .pipe(materialize()) // call materialize and dematerialize to ensure delay even if an error is thrown (https://github.com/Reactive-Extensions/RxJS/issues/648)
-            .pipe(delay(500))
-            .pipe(dematerialize());
+            .pipe(delay(500));
 
         function handleRoute() {
             switch (true) {
@@ -29,35 +29,24 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             }    
         }
 
-        // route functions
-
         function authenticate() {
             const { username, password } = body;
             const user = users.find(x => x.username === username && x.password === password);
-            if (!user) return error('Username o password errati.');
-            return ok({
-                id: user.id,
-                username: user.username,
-                firstName: user.firstName,
-                lastName: user.lastName,
-                token: 'fake-jwt-token'
-            })
-        }
-
-        // helper functions
-
-        function ok(body?) {
-            return of(new HttpResponse({ status: 200, body }))
-        }
-
-        function error(message) {
-            return throwError({ error: { message } });
+            if (!user) {
+                return throwError(() => new Error('Username o password errati.'));
+            } else {
+                let params = {
+                    id: user.id,
+                    username: user.username,
+                    token: 'fake-jwt-token'
+                };
+                return of(new HttpResponse({ status: 200, body: params }))
+            }
         }
     }
 }
 
 export const fakeBackendProvider = {
-    // use fake backend in place of Http service for backend-less development
     provide: HTTP_INTERCEPTORS,
     useClass: FakeBackendInterceptor,
     multi: true
