@@ -9,28 +9,20 @@ let users = [
 ];
 
 @Injectable()
-export class FakeBackendInterceptor implements HttpInterceptor {
+export class AuthenticationInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const { url, method, headers, body } = request;
+        const body = request.body;
 
         // wrap in delayed observable to simulate server api call
         // of converts the arguments to an observable sequence
         return of(null)
-            .pipe(mergeMap(handleRoute))
-            .pipe(delay(500));
-
-        function handleRoute() {
-            switch (true) {
-                case url.endsWith('/users/authenticate') && method === 'POST':
-                    return authenticate();
-                default:
-                    // pass through any requests not handled above
-                    return next.handle(request);
-            }    
-        }
+            .pipe(mergeMap(authenticate))
+            .pipe(delay(1000));
 
         function authenticate() {
-            const { username, password } = body;
+            // check if credentials are correct
+            const username = body.username;
+            const password = body.password;
             const user = users.find(x => x.username === username && x.password === password);
             if (!user) {
                 return throwError(() => new Error('Username o password errati.'));
@@ -46,8 +38,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     }
 }
 
-export const fakeBackendProvider = {
+export const authenticationInterceptor = {
     provide: HTTP_INTERCEPTORS,
-    useClass: FakeBackendInterceptor,
+    useClass: AuthenticationInterceptor,
     multi: true
 };

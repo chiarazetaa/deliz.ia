@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { first } from 'rxjs';
+import { of } from 'rxjs';
 import { AuthenticationService } from '../_services/authentication.service';
 
 @Component({
@@ -39,7 +39,9 @@ export class LoginComponent implements OnInit{
   }
 
   // convenience getter for easy access to form fields
-  get f() { return this.loginForm.controls; }
+  get credentials() { 
+    return this.loginForm.controls; 
+  }
 
   onSubmit() {
     this.submitted = true;
@@ -52,8 +54,7 @@ export class LoginComponent implements OnInit{
     this.loading = true;
 
     // check credentials
-    this.authenticationService.login(this.f.username.value, this.f.password.value)
-    .pipe(first())
+    this.authenticationService.login(this.credentials.username.value, this.credentials.password.value)
     .subscribe(
       data => {
         this.router.navigate([this.returnUrl]);
