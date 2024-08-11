@@ -13,6 +13,7 @@ export class ItemEditComponent implements OnInit {
   editMode = false;
 
   item: Item;
+  itemId = null;
   itemName = '';
   itemDescription = '';
   itemPrice = null;
@@ -49,7 +50,8 @@ export class ItemEditComponent implements OnInit {
   }
 
   onAddItem() {
-    this.itemService.addItem({ id: null, name: this.itemName, description: this.itemDescription, price: this.itemPrice, picture: this.itemPicture, notes: this.itemNotes });
+    this.itemId = this.itemService.generateId();
+    this.itemService.addItem({ id: this.itemId, name: this.itemName, description: this.itemDescription, price: this.itemPrice, picture: this.itemPicture, notes: this.itemNotes });
     this.router.navigate(['../'], { relativeTo: this.route });
   }
 
