@@ -1,4 +1,4 @@
-# Deliz.ia Front-end
+# Deliz.ia (frontend)
 
 An Angular application for viewing and ordering menu items.
 
