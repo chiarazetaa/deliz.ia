@@ -9,14 +9,14 @@ import { AuthGuard } from './_helpers/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/items', pathMatch: 'full' },
-  { path: 'items', component: ItemsComponent, canActivate: [AuthGuard], children: [
+  { path: 'items', component: ItemsComponent, children: [
     { path: '', component: ItemStartComponent },
-    { path: 'new', component: ItemEditComponent },
+    { path: 'new', component: ItemEditComponent, canActivate: [AuthGuard] },
     { path: ':id', component: ItemDetailComponent },
-    { path: ':id/edit', component: ItemEditComponent },
+    { path: ':id/edit', component: ItemEditComponent, canActivate: [AuthGuard] },
   ] },
   { path: 'login', component: LoginComponent },
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: '/items' }
 ];
 
 @NgModule({

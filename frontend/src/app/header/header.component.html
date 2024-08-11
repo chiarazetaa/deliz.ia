@@ -1,10 +1,15 @@
 <nav class="navbar navbar-expand-sm">
     <div class="container-fluid">
         <div class="navbar-start">
-            <a class="navbar-brand" routerLink="/login">Deliz.ia</a>
+            <a class="navbar-brand" routerLink="/">Deliz.ia</a>
         </div>
-        <div class="navbar-end" *ngIf="currentUser">
-            <button type="button" class="btn btn-outline-primary" (click)="logout()">Logout</button>
+        <div *ngIf="currentPath !== '/login'">
+            <div class="navbar-end" *ngIf="!currentUser">
+                <button type="button" class="btn btn-outline-primary" (click)="login()">Login</button>
+            </div>
+            <div class="navbar-end" *ngIf="currentUser">
+                <button type="button" class="btn btn-outline-primary" (click)="logout()">Logout</button>
+            </div>
         </div>
     </div>
 </nav>

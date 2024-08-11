@@ -3,6 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Item } from '../../_models/item.model';
 import { ItemService } from '../../_services/item.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { AuthenticationService } from 'src/app/_services/authentication.service';
 
 @Component({
   selector: 'app-item-detail',
@@ -11,6 +12,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class ItemDetailComponent implements OnInit {
 
+  currentUser: any;
   item: Item;
   id: number;
 
@@ -18,8 +20,11 @@ export class ItemDetailComponent implements OnInit {
     private itemService: ItemService, 
     private route: ActivatedRoute, 
     private router: Router, 
-    private modalService: NgbModal
-  ) { }
+    private modalService: NgbModal,
+    private authenticationService: AuthenticationService
+  ) { 
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe(
