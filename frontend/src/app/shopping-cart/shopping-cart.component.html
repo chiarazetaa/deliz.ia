@@ -1,3 +1,60 @@
 <div class="container">
-    
+    <h1>Carrello</h1>
+    <div class="row mt-5">
+        <div class="col-sm-12">
+            <h5 *ngIf="cartList.length === 0">Il tuo carrello è vuoto</h5>
+            <table class="table" *ngIf="cartList.length > 0">
+                <thead>
+                    <tr>
+                        <td>Pietanza</td>
+                        <td>Prezzo unitario</td>
+                        <td>Quantità</td>
+                        <td>Totale</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cartItem of cartList">
+                        <td>{{ cartItem.item.name }}</td>
+                        <td>{{ cartItem.item.price }} €</td>
+                        <td>
+                            <button type="button" class="btn btn-link" (click)="changeQuantity(cartItem, 'increase')">
+                                <i class="bi bi-plus-lg"></i>
+                            </button>
+                            {{ cartItem.quantity }}
+                            <button type="button" class="btn btn-link" (click)="changeQuantity(cartItem, 'decrease')">
+                                <i class="bi bi-dash-lg"></i>
+                            </button>
+                        </td>
+                        <td>{{ getSubtotal(cartItem.item.price, cartItem.quantity) }} €</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Totale</strong></td>
+                        <td></td>
+                        <td></td>
+                        <td>{{ getTotal() }} €</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="col-sm d-md-flex justify-content-md-end" *ngIf="cartList.length > 0">
+                <button type="button" class="btn btn-danger fit-content me-2" (click)="onRemoveAllCartItems()">Elimina ordine</button>
+                <button type="button" class="btn btn-success fit-content" (click)="open(orderModal)">Ordina</button>
+            </div>
+        </div>
+    </div>
 </div>
+
+<ng-template #orderModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Grazie per il tuo ordine</h4>
+    </div>
+    <div class="modal-body">
+        <h5>Riepilogo:</h5>
+        <ul *ngFor="let cartItem of cartList">
+            <li>{{cartItem.item.name}} ({{cartItem.quantity}})</li>
+        </ul>
+        <h5>Prezzo totale: {{ getTotal() }} €</h5>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Ok')">Ok</button>
+    </div>
+</ng-template>

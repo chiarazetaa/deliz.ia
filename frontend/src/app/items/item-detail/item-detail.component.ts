@@ -4,6 +4,7 @@ import { Item } from '../../_models/item.model';
 import { ItemService } from '../../_services/item.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
+import { CartService } from 'src/app/_services/cart.service';
 
 @Component({
   selector: 'app-item-detail',
@@ -20,7 +21,8 @@ export class ItemDetailComponent implements OnInit {
     private route: ActivatedRoute, 
     private router: Router, 
     private modalService: NgbModal,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private cartService: CartService
   ) { 
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
@@ -45,6 +47,11 @@ export class ItemDetailComponent implements OnInit {
     this.router.navigate(['../'], { relativeTo: this.route });
   }
 
+  onAddItemToCart() {
+    this.cartService.addItemToCart(this.item);
+  }
+
+  // delete item modal
   open(content: any) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       if (result == 'Elimina') {

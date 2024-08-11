@@ -24,7 +24,7 @@
 </div>
 <div class="row" *ngIf="!currentUser">
     <div class="col-sm d-md-flex justify-content-md-end">
-        <button type="button" class="btn btn-primary fit-content"><i class="bi bi-cart4" style="font-size: 1.2em;"></i></button>
+        <button type="button" class="btn btn-primary fit-content" (click)="onAddItemToCart()"><i class="bi bi-cart4" style="font-size: 1.2em;"></i></button>
     </div>
 </div>
 
