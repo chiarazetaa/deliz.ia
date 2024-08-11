@@ -1,0 +1,13 @@
+.item {
+    cursor: pointer;
+    display: flex;
+}
+
+.item-description {
+    word-wrap: break-word;
+}
+
+.active {
+    background-color: #F0F0F0;
+    border: 0;
+}

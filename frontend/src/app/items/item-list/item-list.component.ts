@@ -2,13 +2,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Item } from '../../utilities/models/item.model';
 import { Subscription } from 'rxjs';
 import { ItemsService } from '../../utilities/services/items.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ItemComponent } from './item/item.component';
+import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-item-list',
   standalone: true,
-  imports: [ItemComponent],
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './item-list.component.html',
   styleUrl: './item-list.component.scss'
 })
