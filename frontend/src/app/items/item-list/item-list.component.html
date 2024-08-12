@@ -9,11 +9,11 @@
 <div class="row">
     <div class="col-sm">
         @for (item of items; track item) {
-        <div class="item list-group-item list-group-item-action" [routerLink]="[item.id]" routerLinkActive="active">
+        <div class="item list-group-item list-group-item-action" [routerLink]="[item._id]" routerLinkActive="active">
             <div class="row">
                 <div class="col">
                     <h4 class="float-start list-group-item bg-transparent border-0">{{ item.name }}</h4>
-                    <h5 class="float-end list-group-item bg-transparent border-0">{{ item.price }} €</h5>  
+                    <h5 class="float-end list-group-item bg-transparent border-0">{{ item.price }} €</h5>
                 </div>
                 <p class="item-description float-start list-group-item bg-transparent border-0">
                     {{ item.description }}

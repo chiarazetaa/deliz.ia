@@ -10,6 +10,9 @@ frontend/bazel-out
 frontend/node_modules
 frontend/npm-debug.log
 frontend/yarn-error.log
+backend-nodejs/node_modules
+backend-nodejs/npm-debug.log
+backend-nodejs/yarn-error.log
 
 # IDEs and editors
 frontend/.idea

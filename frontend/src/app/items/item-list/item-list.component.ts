@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Item } from '../../utilities/models/item.model';
-import { Subscription } from 'rxjs';
-import { ItemsService } from '../../utilities/services/items.service';
 import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { ApiService } from '../../utilities/services/api.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-item-list',
@@ -13,34 +13,33 @@ import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/r
 })
 export class ItemListComponent implements OnInit, OnDestroy {
   items: Item[] = [];
-  private itemsSubscription: Subscription;
+  private itemsSubscription: Subscription | undefined;
 
   constructor(
-    private itemService: ItemsService, 
+    private apiService: ApiService,
     private router: Router,
     private route: ActivatedRoute,
-  ) { 
-    this.itemsSubscription = this.itemService.itemsChanged.subscribe(
-      (items: Item[]) => {
-        this.items = items;
-      }
-    );
-  }
+  ) { }
 
   ngOnInit(): void {
-    this.items = this.itemService.getItems();
-    this.itemsSubscription = this.itemService.itemsChanged.subscribe(
-      (items: Item[]) => {
-        this.items = items;
-      }
-    );
+    // subscribe to the itemsChanged Subject to get notified of changes
+    this.itemsSubscription = this.apiService.itemsChanged.subscribe((items) => {
+      this.items = items;
+    });
+
+    // fetch the initial list of items
+    this.refreshItems();
+  }
+
+  refreshItems(): void {
+    this.apiService.getItems().subscribe();
   }
 
   onNewItem() {
-    this.router.navigate(['new'], {relativeTo: this.route});
+    this.router.navigate(['new'], { relativeTo: this.route });
   }
 
   ngOnDestroy(): void {
-    this.itemsSubscription.unsubscribe();
+    if (this.itemsSubscription) this.itemsSubscription.unsubscribe();
   }
 }

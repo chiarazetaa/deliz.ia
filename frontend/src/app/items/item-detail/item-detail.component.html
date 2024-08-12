@@ -1,4 +1,4 @@
-@if (item.id) {
+@if (item && item._id) {
 <div class="row">
     <div class="col-sm">
         <img src="{{ item.picture }}" alt="{{ item.name }}" class="image-resonsive">
@@ -24,21 +24,17 @@
         <h4 class="cart me-2">Carrello: {{ cartItemQuantity }}</h4>
     </div>
     <div class="col-sm d-md-flex justify-content-md-end">
-        <button type="button" class="btn btn-primary fit-content me-2" (click)="onAddItemToCart()">
+        <button type="button" class="btn btn-primary fit-content me-2" title="Aggiungi al carrello" (click)="onAddItemToCart()">
             <i class="bi bi-cart4"></i>
         </button>
-        <button type="button" class="btn btn-primary fit-content me-2" (click)="onEditItem()">
+        <button type="button" class="btn btn-primary fit-content me-2" title="Modifica elemento" (click)="onEditItem()">
             <i class="bi bi-pencil-fill"></i>
         </button>
-        <button type="button" class="btn btn-danger fit-content" (click)="open(deleteModal)">
+        <button type="button" class="btn btn-danger fit-content" title="Elimina dalla lista" (click)="open(deleteModal)">
             <i class="bi bi-trash-fill"></i>
         </button>
     </div>
 </div>
-}
-@else {
-    <h3>Please select an item!</h3>
-}
 <ng-template #deleteModal let-modal>
     <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title">Vuoi eliminare {{ item.name }}?</h4>
@@ -48,3 +44,7 @@
         <button type="button" class="btn btn-outline-dark" (click)="modal.close('Annulla')">No</button>
     </div>
 </ng-template>
+}
+@else {
+<h3>Please select an item!</h3>
+}

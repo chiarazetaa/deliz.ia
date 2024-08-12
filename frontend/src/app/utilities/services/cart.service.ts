@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Cart } from "../models/cart.model";
 import { Subject } from "rxjs";
-import { ItemsService } from "./items.service";
 import { Item } from "../models/item.model";
 
 @Injectable({ providedIn: 'root' })
@@ -9,7 +8,7 @@ export class CartService {
     cartList: Cart[] = [];
     cartListChanged = new Subject<Cart[]>();
 
-    constructor(private itemService: ItemsService) {
+    constructor() {
         const items = localStorage.getItem('shopping-cart');
         this.cartList = items ? JSON.parse(items) : [];
     }
@@ -20,14 +19,14 @@ export class CartService {
 
     getCartItem(item: Item) {
         let currentCartList = this.getCartList();
-        let cartItem = currentCartList.find(el => el.item.id === item.id);
+        let cartItem = currentCartList.find(el => el.item._id === item._id);
         return (cartItem && cartItem.quantity) ? cartItem.quantity : 0;
     }
 
     addItemToCart(item: Item) {
         let currentCartList = this.getCartList();
         // check if item is already in the cart
-        let itemExistsInCart = currentCartList.find(el => el.item.id === item.id);
+        let itemExistsInCart = currentCartList.find(el => el.item._id === item._id);
 
         if (itemExistsInCart) {
             itemExistsInCart.quantity++;
@@ -42,7 +41,7 @@ export class CartService {
 
     changeQuantity(cartItem: Cart, action: string) {
         let currentCartList = this.getCartList();
-        let itemFound = currentCartList.find(el => el.item.id === cartItem.item.id);
+        let itemFound = currentCartList.find(el => el.item._id === cartItem.item._id);
 
         if (itemFound) {
             if (action === 'increase') {
@@ -66,7 +65,7 @@ export class CartService {
         let currentCartList = this.getCartList();
         let newCartList: Cart[] = [];
         for (let cartItem of currentCartList) {
-            let itemFound = items.find(el => el.id === cartItem.item.id);
+            let itemFound = items.find(el => el._id === cartItem.item._id);
             if (itemFound) {
                 cartItem.item = itemFound;
             } else {

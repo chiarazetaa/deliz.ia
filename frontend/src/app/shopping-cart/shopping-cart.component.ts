@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Cart } from '../utilities/models/cart.model';
 import { Subscription } from 'rxjs';
 import { CartService } from '../utilities/services/cart.service';
-import { ItemsService } from '../utilities/services/items.service';
 import { Item } from '../utilities/models/item.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -19,7 +18,6 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
 
   constructor(
     private cartService: CartService,
-    private itemService: ItemsService,
     private modalService: NgbModal
   ) {
     this.cartListSubscription = this.cartService.cartListChanged.subscribe(
@@ -27,7 +25,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
         this.cartList = cartList;
       }
     );
-    this.updateCartList(this.itemService.getItems());
+    // this.updateCartList(this.itemService.getItems());
   }
 
   ngOnInit(): void {
@@ -37,7 +35,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
         this.cartList = cartList;
       }
     );
-    this.updateCartList(this.itemService.getItems());
+    // this.updateCartList(this.itemService.getItems());
   }
 
   getCartList() {
