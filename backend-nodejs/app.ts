@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const jwt = require('jsonwebtoken');
 const { ObjectId } = require('mongodb');
 const { database } = require('./db');
 
@@ -18,6 +19,11 @@ app.listen(port, () => {
     console.log('Server is running at http://localhost:' + port);
 });
 
+const users = [
+    {id: 1, username: 'admin', password: 'admin'},
+    {id: 1, username: 'user', password: 'user'}
+];
+
 async function databaseMiddleware(req, res, next) {
     try {
         if (!req.db) {
@@ -29,6 +35,23 @@ async function databaseMiddleware(req, res, next) {
         res.status(500).send({ error: 'Database connection failed' });
     }
 }
+
+// login
+app.post('/api/login', (req, res) => {
+    let username = req.body.username;
+    let password = req.body.password;
+
+    // find user by username and password
+    let user = users.find((u) => u.username === username && u.password === password );
+    if (user) {
+        // generate jwt token
+        const token = jwt.sign({ userId: user.id }, 'secret_key', { expiresIn: '1h' });
+        res.status(200).send({ success: true, token: token})
+    } else {
+        res.status(401).send({ success: false, message: 'Invalid username or password'})
+    }
+});
+
 
 // get items list
 app.get('/api/items', async function (req: any, res: any) {
