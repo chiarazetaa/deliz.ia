@@ -1,11 +1,12 @@
 import { Item } from "./item.model";
 
 export class Cart {
-    public item: Item;
-    public quantity: number;
+    public _id: string;
+    public list: [];
+    
 
-    constructor(item: Item, quantity: number) {
-        this.item = item;
-        this.quantity = quantity;
+    constructor(_id: string, list: []) {
+        this._id = _id;
+        this.list = list;
     }
 }

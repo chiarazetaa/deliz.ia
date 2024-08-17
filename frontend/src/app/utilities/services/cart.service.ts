@@ -5,8 +5,8 @@ import { Item } from "../models/item.model";
 
 @Injectable({ providedIn: 'root' })
 export class CartService {
-    cartList: Cart[] = [];
-    cartListChanged = new Subject<Cart[]>();
+    cartList: any[] = [];
+    cartListChanged = new Subject<any[]>();
 
     constructor() {
         const items = localStorage.getItem('shopping-cart');
@@ -31,7 +31,7 @@ export class CartService {
         if (itemExistsInCart) {
             itemExistsInCart.quantity++;
         } else {
-            currentCartList.push(new Cart(item, 1));
+            //currentCartList.push(new Cart({item, 1}));
         }
 
         // update cart list
@@ -41,7 +41,9 @@ export class CartService {
 
     changeQuantity(cartItem: Cart, action: string) {
         let currentCartList = this.getCartList();
-        let itemFound = currentCartList.find(el => el.item._id === cartItem.item._id);
+        let itemFound = currentCartList.find(el => el.item._id === cartItem//.item._id
+
+        );
 
         if (itemFound) {
             if (action === 'increase') {
@@ -73,7 +75,7 @@ export class CartService {
             }
             newCartList.push(new Cart(cartItem.item, cartItem.quantity));
         }
-        newCartList = newCartList.filter(item => item.quantity > 0);
+        //newCartList = newCartList.filter(item => item.quantity > 0);
         // update cart list
         localStorage.setItem('shopping-cart', JSON.stringify(newCartList));
         this.cartListChanged.next(newCartList);

@@ -2,9 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Item } from '../../utilities/models/item.model';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CartService } from '../../utilities/services/cart.service';
-import { Cart } from '../../utilities/models/cart.model';
 import { ApiService } from '../../utilities/services/api.service';
+import { Subscription } from 'rxjs';
+import { Cart } from '../../utilities/models/cart.model';
 
 @Component({
   selector: 'app-item-detail',
@@ -16,24 +16,15 @@ import { ApiService } from '../../utilities/services/api.service';
 export class ItemDetailComponent implements OnInit, OnDestroy {
   item?: Item;
   _id: string = '';
-  cartItemQuantity: number = 0;
-  // private cartItemSubscription: Subscription;
+  cart: Cart = { _id: '', list: [] };
+  private cartSubscription: Subscription | undefined;
 
   constructor(
     private apiService: ApiService,
     private route: ActivatedRoute, 
     private router: Router, 
-    private modalService: NgbModal,
-    private cartService: CartService
-  ) { 
-    // subscription to cart list
-    // this.cartItemSubscription = this.cartService.cartListChanged.subscribe(
-    //   (cartList: Cart[]) => {
-    //     let itemExistsInCart = cartList.find(el => el.item._id === this.item._id);
-    //     this.cartItemQuantity = (itemExistsInCart && itemExistsInCart.quantity) ? itemExistsInCart.quantity : 0;
-    //   }
-    // );
-  }
+    private modalService: NgbModal
+  ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
@@ -46,17 +37,10 @@ export class ItemDetailComponent implements OnInit, OnDestroy {
           console.error('Error fetching the item:', error);
         }
       });
-      // if (!this.item) {
-      //   this.router.navigate(['/items']);
-      // }
-      // this.cartItemQuantity = this.cartService.getCartItem(this.item);
-      //   // subscription to cart list
-      //   this.cartItemSubscription = this.cartService.cartListChanged.subscribe(
-      //     (cartList: Cart[]) => {
-      //       let itemExistsInCart = cartList.find(el => el.item._id === this.item._id);
-      //       this.cartItemQuantity = (itemExistsInCart && itemExistsInCart.quantity) ? itemExistsInCart.quantity : 0;
-      //     }
-      //   );
+    });
+    // subscribe to the cartChanged Subject to get notified of changes
+    this.cartSubscription = this.apiService.cartChanged.subscribe((cart) => {
+      this.cart = cart;
     });
   }
 
@@ -85,11 +69,20 @@ export class ItemDetailComponent implements OnInit, OnDestroy {
   }
 
   onAddItemToCart() {
-    // this.cartService.addItemToCart(this.item);
+    if (this.item && this.cart) {
+      this.apiService.addItemToCart(this.cart, this.item._id).subscribe({
+        next: () => {
+          console.log('Item added to the cart');
+        },
+        error: (error) => {
+          console.error('Error updating the item:', error);
+        }
+      });
+    }
   }
 
   ngOnDestroy(): void {
-    // this.cartItemSubscription.unsubscribe();
+    if (this.cartSubscription) this.cartSubscription.unsubscribe();
   }
 
 }

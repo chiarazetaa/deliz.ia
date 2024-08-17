@@ -8,7 +8,7 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
                     <a class="nav-link" routerLink="/shopping-cart" routerLinkActive="active-link">
-                        <i class="bi bi-cart4"></i> Carrello
+                        <i class="bi bi-cart4"></i> Carrello ({{ cartItemsQuantity }})
                     </a>
                 </li>
             </ul>
@@ -16,11 +16,11 @@
         <!-- } -->
         @if (currentPath !== '/login') {
         <div>
-            @if (!currentUser) {
+            <!-- @if (!currentUser) {
             <div class="navbar-end">
                 <button type="button" class="btn btn-outline-primary larger-size" (click)="login()">Login</button>
             </div>
-            }
+            } -->
             <!-- @if (currentUser) {
             <div class="navbar-end">
                 <button type="button" class="btn btn-outline-primary larger-size" (click)="logout()">Logout</button>
