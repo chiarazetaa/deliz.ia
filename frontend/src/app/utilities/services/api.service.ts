@@ -65,4 +65,11 @@ export class ApiService {
       tap(updatedCart => this.cartChanged.next(updatedCart))
     );
   }
+
+  removeAllCartItems(cartId: string): Observable<any> {
+    return this.http.put<any>(`${environment.backendUrl}/api/carts/deleteItems`, {cartId: cartId}).pipe(
+      // emit updated cart
+      tap(updatedCart => this.cartChanged.next(updatedCart))
+    );
+  }
 }

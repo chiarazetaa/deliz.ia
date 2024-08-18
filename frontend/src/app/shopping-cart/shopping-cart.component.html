@@ -1,11 +1,11 @@
-<!-- <div class="container">
+<div class="container">
     <h1>Carrello</h1>
     <div class="row mt-5">
         <div class="col-sm-12">
-            @if (cartList.length === 0) {
+            @if (cart._id === '' || cart.list.length === 0) {
             <h5>Il tuo carrello è vuoto</h5>
             }
-            @if (cartList.length > 0) {
+            @else {
             <table class="table">
                 <thead>
                     <tr>
@@ -16,32 +16,30 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @for (cartItem of cartList; track cartItem) {
+                    @for (cartItem of cart.list; track cartItem) {
                     <tr>
-                        <td>{{ cartItem.item.name }}</td>
-                        <td>{{ cartItem.item.price }} €</td>
+                        <td>{{ cartItem['itemId'] }}</td>
+                        <td>?? €</td>
                         <td>
-                            <button type="button" class="btn btn-link" (click)="changeQuantity(cartItem, 'increase')">
+                            <!-- <button type="button" class="btn btn-link" (click)="changeQuantity(cartItem, 'increase')">
                                 <i class="bi bi-plus-lg"></i>
-                            </button>
-                            {{ cartItem.quantity }}
-                            <button type="button" class="btn btn-link" (click)="changeQuantity(cartItem, 'decrease')">
+                            </button> -->
+                            {{ cartItem['quantity'] }}
+                            <!-- <button type="button" class="btn btn-link" (click)="changeQuantity(cartItem, 'decrease')">
                                 <i class="bi bi-dash-lg"></i>
-                            </button>
+                            </button> -->
                         </td>
-                        <td>{{ getSubtotal(cartItem.item.price, cartItem.quantity) }} €</td>
+                        <td> getSubtotal(cartItem.item.price, cartItem.quantity) €</td>
                     </tr>
                     }
                     <tr>
                         <td><strong>Totale</strong></td>
                         <td></td>
                         <td></td>
-                        <td>{{ getTotal() }} €</td>
+                        <td> getTotal() €</td>
                     </tr>
                 </tbody>
             </table>
-            }
-            @if (cartList.length > 0) {
             <div class="col-sm d-md-flex justify-content-md-end">
                 <button type="button" class="btn btn-danger fit-content me-2"
                     (click)="openDeleteOrderModal(deleteModal)">Elimina ordine</button>
@@ -69,14 +67,14 @@
     </div>
     <div class="modal-body">
         <h5>Riepilogo:</h5>
-        @for (cartItem of cartList; track cartItem) {
+        @for (cartItem of cart.list; track cartItem) {
         <ul>
-            <li>{{cartItem.item.name}} ({{cartItem.quantity}})</li>
+            <li>{{cartItem['itemId']}} ({{cartItem['quantity']}})</li>
         </ul>
         }
-        <h5>Prezzo totale: {{ getTotal() }} €</h5>
+        <h5>Prezzo totale:  getTotal()  €</h5>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Ok')">Ok</button>
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Ordina')">Ordina</button>
     </div>
-</ng-template> -->
+</ng-template>

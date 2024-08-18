@@ -20,8 +20,8 @@ app.listen(port, () => {
 });
 
 const users = [
-    {id: 1, username: 'admin', password: 'admin'},
-    {id: 1, username: 'user', password: 'user'}
+    { id: 1, username: 'admin', password: 'admin' },
+    { id: 1, username: 'user', password: 'user' }
 ];
 
 async function databaseMiddleware(req, res, next) {
@@ -38,18 +38,18 @@ async function databaseMiddleware(req, res, next) {
 
 // login
 app.post('/api/login', (req, res) => {
-    let username = req.body.username;
-    let password = req.body.password;
+    // let username = req.body.username;
+    // let password = req.body.password;
 
-    // find user by username and password
-    let user = users.find((u) => u.username === username && u.password === password );
-    if (user) {
-        // generate jwt token
-        const token = jwt.sign({ userId: user.id }, 'secret_key', { expiresIn: '1h' });
-        res.status(200).send({ success: true, token: token})
-    } else {
-        res.status(401).send({ success: false, message: 'Invalid username or password'})
-    }
+    // // find user by username and password
+    // let user = users.find((u) => u.username === username && u.password === password);
+    // if (user) {
+    //     // generate jwt token
+    //     const token = jwt.sign({ userId: user.id }, 'secret_key', { expiresIn: '1h' });
+    //     res.status(200).send({ success: true, token: token })
+    // } else {
+    //     res.status(401).send({ success: false, message: 'Invalid username or password' })
+    // }
 });
 
 
@@ -115,7 +115,7 @@ app.put('/api/items/:id', async function (req: any, res: any) {
 // get cart
 app.get('/api/carts', async function (req: any, res: any) {
     try {
-        let cart = await req.db.collection('carts').findOne({ });
+        let cart = await req.db.collection('carts').findOne({});
         res.send(cart);
     } catch (err) {
         res.send({ error: 'Failed to fetch the cart' });
@@ -141,5 +141,17 @@ app.put('/api/carts', async function (req: any, res: any) {
         res.send(updatedCart);
     } catch (err) {
         res.send({ error: 'Failed to update the cart' });
+    }
+});
+
+// delete all cart items
+app.put('/api/carts/deleteItems', async function (req: any, res: any) {
+    try {
+        let cartId = req.body.cartId;
+        await req.db.collection('carts').updateOne({ _id: new ObjectId(cartId) }, { $set: { list: [] } });
+        let updatedCart = await req.db.collection('carts').findOne({ _id: new ObjectId(cartId) });
+        res.send(updatedCart);
+    } catch (err) {
+        res.send({ error: 'Failed to delete the item' });
     }
 });

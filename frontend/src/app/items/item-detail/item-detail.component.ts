@@ -38,6 +38,17 @@ export class ItemDetailComponent implements OnInit, OnDestroy {
         }
       });
     });
+
+    // fetch the cart whenever the component is initialized
+    this.apiService.getCart().subscribe({
+      next: (cart) => {
+        this.cart = cart;
+      },
+      error: (error) => {
+        console.error('Error fetching the cart:', error);
+      }
+    });
+    
     // subscribe to the cartChanged Subject to get notified of changes
     this.cartSubscription = this.apiService.cartChanged.subscribe((cart) => {
       this.cart = cart;
