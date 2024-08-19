@@ -18,25 +18,27 @@
                 <tbody>
                     @for (cartItem of cart.list; track cartItem) {
                     <tr>
-                        <td>{{ cartItem['itemId'] }}</td>
-                        <td>?? €</td>
+                        <td>{{ cartItem['item']['name'] }}</td>
+                        <td>{{ cartItem['item']['price'] }} €</td>
                         <td>
-                            <!-- <button type="button" class="btn btn-link" (click)="changeQuantity(cartItem, 'increase')">
+                            <button type="button" class="btn btn-link"
+                                (click)="changeQuantity(cart, cartItem, 'increase')">
                                 <i class="bi bi-plus-lg"></i>
-                            </button> -->
+                            </button>
                             {{ cartItem['quantity'] }}
-                            <!-- <button type="button" class="btn btn-link" (click)="changeQuantity(cartItem, 'decrease')">
+                            <button type="button" class="btn btn-link"
+                                (click)="changeQuantity(cart, cartItem, 'decrease')">
                                 <i class="bi bi-dash-lg"></i>
-                            </button> -->
+                            </button>
                         </td>
-                        <td> getSubtotal(cartItem.item.price, cartItem.quantity) €</td>
+                        <td> {{getSubtotal(cartItem['item']['price'], cartItem['quantity'])}} €</td>
                     </tr>
                     }
                     <tr>
                         <td><strong>Totale</strong></td>
                         <td></td>
                         <td></td>
-                        <td> getTotal() €</td>
+                        <td> {{getTotal()}} €</td>
                     </tr>
                 </tbody>
             </table>
@@ -69,10 +71,10 @@
         <h5>Riepilogo:</h5>
         @for (cartItem of cart.list; track cartItem) {
         <ul>
-            <li>{{cartItem['itemId']}} ({{cartItem['quantity']}})</li>
+            <li>{{cartItem['item']['name']}} ({{cartItem['quantity']}})</li>
         </ul>
         }
-        <h5>Prezzo totale:  getTotal()  €</h5>
+        <h5>Prezzo totale: {{getTotal()}} €</h5>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-outline-dark" (click)="modal.close('Ordina')">Ordina</button>

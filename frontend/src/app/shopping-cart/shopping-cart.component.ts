@@ -21,39 +21,38 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+    // fetch the cart whenever the component is initialized
+    this.apiService.getCart().subscribe({
+      next: (cart) => {
+        this.cart = cart;
+      },
+      error: (error) => {
+        console.error('Error fetching the cart:', error);
+      }
+    });
+
     // subscribe to the cartChanged Subject to get notified of changes
     this.cartSubscription = this.apiService.cartChanged.subscribe((cart) => {
       this.cart = cart;
     });
-
-    // fetch the initial cart
-    this.refreshCart();
   }
 
-  refreshCart(): void {
-    this.apiService.getCart().subscribe();
+  getSubtotal(price: number, quantity: number) {
+    let subtotal = price * quantity;
+    return subtotal;
   }
 
-  // getSubtotal(price: number, quantity: number) {
-  //   let subtotal = price * quantity;
-  //   return subtotal;
-  // }
+  getTotal() {
+    let total = 0;
+    for (let cartItem of this.cart.list) {
+      total += this.getSubtotal(cartItem['item']['price'], cartItem['quantity']);
+    }
+    return total;
+  }
 
-  // getTotal() {
-  //   let total = 0;
-  //   for (let cartItem of this.cartList) {
-  //     total += this.getSubtotal(cartItem.item.price, cartItem.quantity);
-  //   }
-  //   return total;
-  // }
-
-  // changeQuantity(cartItem: Cart, action: string) {
-  //   this.cartService.changeQuantity(cartItem, action);
-  // }
-
-  // updateCartList(items: Item[]) {
-  //   this.cartService.updateCartList(items);
-  // }
+  changeQuantity(cart: Cart, cartItem: object, action: string) {
+    this.apiService.changeQuantity(cart, cartItem, action).subscribe();
+  }
 
   ngOnDestroy(): void {
     if (this.cartSubscription) this.cartSubscription.unsubscribe();

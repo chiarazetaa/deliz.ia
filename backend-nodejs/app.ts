@@ -127,12 +127,14 @@ app.put('/api/carts', async function (req: any, res: any) {
     try {
         let itemId = req.body.itemId;
         let cart = req.body.cart;
-        let itemAlreadyInCart = cart.list.find(function (el) { return el.itemId === itemId });
+        let itemAlreadyInCart = cart.list.find(function (el) { return el.item._id === itemId });
+        let item = await req.db.collection('items').findOne({ _id: new ObjectId(itemId) });
+        item._id = item._id.toString();
         if (itemAlreadyInCart) {
             itemAlreadyInCart.quantity++;
         } else {
             cart.list.push({
-                itemId: itemId,
+                item: item,
                 quantity: 1
             });
         }
@@ -153,5 +155,26 @@ app.put('/api/carts/deleteItems', async function (req: any, res: any) {
         res.send(updatedCart);
     } catch (err) {
         res.send({ error: 'Failed to delete the item' });
+    }
+});
+
+// change quantity of an item of the cart
+app.put('/api/carts/changeQuantity', async function (req: any, res: any) {
+    try {
+        let cart = req.body.cart;
+        let cartItem = req.body.cartItem;
+        let action = req.body.action;
+        let itemFound = cart.list.find(function (el) { return el.item._id === cartItem.item._id });
+        if (itemFound && action === 'increase') {
+            itemFound.quantity++;
+        } else if (itemFound && action === 'decrease') {
+            itemFound.quantity--;
+            cart.list = cart.list.filter(el => el.quantity > 0);
+        }
+        await req.db.collection('carts').updateOne({ _id: new ObjectId(cart._id) }, { $set: { list: cart.list } });
+        let updatedCart = await req.db.collection('carts').findOne({ _id: new ObjectId(cart._id) });
+        res.send(updatedCart);
+    } catch (err) {
+        res.send({ error: 'Failed to update the cart' });
     }
 });

@@ -72,4 +72,11 @@ export class ApiService {
       tap(updatedCart => this.cartChanged.next(updatedCart))
     );
   }
+
+  changeQuantity(cart: Cart, cartItem: object, action: string): Observable<any> {
+    return this.http.put<any>(`${environment.backendUrl}/api/carts/changeQuantity`, {cart: cart, cartItem: cartItem, action: action}).pipe(
+      // emit updated cart
+      tap(updatedCart => this.cartChanged.next(updatedCart))
+    );
+  }
 }
