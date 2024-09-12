@@ -40,6 +40,8 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.5.2"
+    "micromatch": "^4.0.8",
+    "typescript": "~5.5.2",
+    "webpack": "^5.94.0"
   }
 }
